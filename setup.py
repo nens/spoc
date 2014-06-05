@@ -29,7 +29,7 @@ tests_require = [
 
 setup(name='spoc',
       version=version,
-      description="TODO",
+      description="Single Point Of Configuration (fews)",
       long_description=long_description,
       # Get strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=['Programming Language :: Python',
@@ -38,7 +38,7 @@ setup(name='spoc',
       keywords=[],
       author='alexandr.seleznev',
       author_email='alexandr.seleznev@nelen-schuurmans.nl',
-      url='',
+      url='https://github.com/nens/spoc',
       license='GPL',
       packages=['spoc'],
       include_package_data=True,

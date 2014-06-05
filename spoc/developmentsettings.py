@@ -25,8 +25,8 @@ DATABASES = {
         # If you want to use postgres, use the two lines below.
         # 'NAME': 'spoc',
         # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'USER': 'buildout',
-        'PASSWORD': 'buildout',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': '',  # empty string for localhost.
         'PORT': '',  # empty string for default.
         }
