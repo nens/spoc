@@ -1,0 +1,67 @@
+spoc
+==========================================
+
+Introduction
+
+Usage, etc.
+
+
+Post-nensskel project setup TODO
+--------------------------------
+
+Here are some instructions on what to do after you've created the project with
+nensskel.
+
+- Fill in a short description on https://github.com/nens/spoc if you
+  haven't done so already.
+
+- Use the same description in the ``setup.py``'s "description" field.
+
+- Fill in your username and email address in the ``setup.py``, see the
+  ``TODO`` fields.
+
+- Check https://github.com/nens/spoc/settings/collaboration if the teams
+  "Nelen & Schuurmans" and "Nelen & Schuurmans pull only" have access.
+
+- Add a new jenkins job at
+  http://buildbot.lizardsystem.nl/jenkins/view/sites/newJob. Job name should
+  be "spoc", make the project a copy of the existing "wro" (for
+  instance) project. On the next page, change the "github project" to
+  ``https://github.com/nens/spoc/`` and
+  "repository url" fields to ``git@github.com:nens/spoc.git``. The rest
+  of the settings should be OK.
+
+Later on, before releasing the site, adjust ``fabfile.cfg`` to point at the
+correct server and configure raven/sentry and gaug.es in the django settings.
+
+
+Initial setup
+--------------------------------
+
+Initially, there's no ``buildout.cfg``. You need to make that a symlink to the
+correct configuration. On your development machine, that is
+``development.cfg`` (and ``staging.cfg`` or ``production.cfg``, for instance
+on the server)::
+
+    $ ln -s development.cfg buildout.cfg
+
+Then run bootstrap and buildout, as usual::
+
+    $ python bootstrap.py
+    $ bin/buildout
+
+Set up a database (and yes, set up an admin user when asked)::
+
+    $ bin/django syncdb
+    $ bin/django migrate
+
+And import two fixtures. The background_maps sets up a couple of lizard-map
+defaults. Democontent gives you an initial homepage and a link to an example
+WMS layer::
+
+    $ bin/django loaddata background_maps
+    $ bin/django loaddata democontent
+
+Start the server::
+
+    $ bin/django runserver
