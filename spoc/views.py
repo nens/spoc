@@ -12,31 +12,86 @@ from rest_framework import authentication, permissions
 # from django.core.urlresolvers import reverse
 
 from spoc import models
+from spoc import serializers
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 
 
-# class TodoView(UiView):
-#     """Simple view without a map."""
-#     template_name = 'spoc/todo.html'
-#     page_title = _('TODO view')
+class JSONResponse(HttpResponse):
+    """
+    An HttpResponse that renders its content into JSON.
+    """
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
 
 
-# class Todo2View(MapView):
-#     """Simple view with a map."""
-#     template_name = 'spoc/todo2.html'
-#     page_title = _('TODO 2 view')
+@csrf_exempt
+def location_list(request):
+    """
+    List all locations, or create a new location.
+    """
+    if request.method == 'GET':
+        locations = models.Location.objects.all()
+        serializer = serializers.LocationSerializer(locations, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = serializers.LocationSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
+def location_detail(request, pk):
+    """
+    Retrieve, update or delete a location.
+    """
+    try:
+        location = models.Location.objects.get(pk=pk)
+    except models.Location.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = serializers.LocationSerializer(location)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = serializers.LocationSerializer(location, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data)
+        return JSONResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        location.delete()
+        return HttpResponse(status=204)
+
 
 class ListLocations(viewsets.ModelViewSet):
     """ List dummy locations. """
 
     model = models.Location
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
-    # def get(self, request, format=None):
-    #     dummy_locations = [
-    #         {"locationId": "1", "name": "ABC201"},
-    #         {"locationId": "2", "name": "ABC202"},
-    #         {"locationId": "3", "name": "ABC203"},
-    #         {"locationId": "4", "name": "ABC204"}
-    #     ]
-    #     locations = [Location(**location) for location in dummy_locations]
-    #     return Response(locations)
+class LocationDetails(viewsets.ModelViewSet):
+    """ List dummy locations. """
+
+    model = models.Location
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get(self, request, pk=None):
+        location = models.Locations.objects.get(pk=pk)
+        return Response(location)
+
+    def post(self, request, pk=None, *args, **kwargs):
+        import pdb; pdb.set_trace()
+        return Response(models.Location.objects.get(pk=pk))

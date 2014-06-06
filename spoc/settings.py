@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     'spoc',
     'south',
     'django_extensions',
+    'django_pygments',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.staticfiles',

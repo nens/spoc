@@ -27,13 +27,15 @@ from rest_framework.views import APIView
 router = routers.DefaultRouter()
 #router.register(r'users', UserViewSet)
 #router.register(r'groups', GroupViewSet)
-router.register(r'locations', views.ListLocations)
+#router.register(r'locations', views.ListLocations)
+#router.register(r'location', views.LocationDetails)
 urlpatterns = patterns(
-    '',
-    #url(r'^$', HomepageView.as_view()),
+    'spoc.views',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^locations/$', 'location_list'),
+    url(r'^locations/(?P<pk>[0-9]+)/$', 'location_detail'),
+    #url(r'^', include(router.urls)),
+    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # url(r'^something/',
     #     views.some_method,
     #     name="name_it"),
