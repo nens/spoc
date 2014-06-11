@@ -14,6 +14,7 @@ install_requires = [
     'django-extensions',
     'django-nose',
     'django-pygments',
+    'django-jsonfield',
     'gunicorn',
     'python-memcached',
     'werkzeug',

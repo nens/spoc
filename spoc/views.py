@@ -32,6 +32,58 @@ from rest_framework.decorators import api_view
 #         super(JSONResponse, self).__init__(content, **kwargs)
 
 
+@api_view(['GET'])
+def oei_list(request):
+    """
+    List all loction of OEI model.
+    """
+    if request.method == 'GET':
+        locations = models.OEI.objects.all()
+        serializer = serializers.OEISerializer(locations, many=True)
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def oei_detail(request, pk):
+    """
+    Retrieve a location from oei table.
+    """
+    try:
+        location = models.OEI.objects.get(pk=pk)
+    except models.OEI.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = serializers.OEISerializer(location)
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def wnsattribute_list(request):
+    """
+    List all wms-attributes.
+    """
+    if request.method == 'GET':
+        wnsattributes = models.WNSAttribute.objects.all()
+        serializer = serializers.OEISerializer(wnsattributes, many=True)
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def wnsattribute_detail(request, pk):
+    """
+    Retrieve a wns-attribute.
+    """
+    try:
+        wnsattribute = models.WNSAttribute.objects.get(pk=pk)
+    except models.WNSAttribute.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = serializers.WNSAttributeSerializer(wnsattribute)
+        return Response(serializer.data)
+
+
 @api_view(['GET', 'POST'])
 def location_list(request):
     """

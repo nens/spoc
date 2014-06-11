@@ -1,6 +1,6 @@
 from django.forms import widgets
 from rest_framework import serializers
-from spoc.models import Location, LANGUAGE_CHOICES, STYLE_CHOICES
+from spoc import models
 
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -35,5 +35,26 @@ class LocationSerializer(serializers.ModelSerializer):
     #     # Create new instance
     #     return Location(**attrs)
     class Meta:
-        model = Location
+        model = models.Location
         fields = ('id', 'locationId', 'name', 'linenos', 'language', 'style')
+
+
+class OEISerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.OEI
+        fields = ('id', 'objectid', 'mpnident', 'mpnomschr', 'mpndatin')
+
+
+class WNSAttributeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.WNSAttribute
+        fields = ('id', 'wnsid', 'wnsname', 'wnshmax', 'wnshmin', 'wnssmax', 'wnssmin')
+
+
+class LocationWNSSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.LocationWNS
+        fields = ('id', 'objectid', 'wnsid')

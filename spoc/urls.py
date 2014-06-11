@@ -32,8 +32,13 @@ router = routers.DefaultRouter()
 urlpatterns = patterns(
     'spoc.views',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^locations/$', 'location_list'),
-    url(r'^locations/(?P<pk>[0-9]+)/$', 'location_detail'),
+    #url(r'^locations/$', 'location_list'),
+    #url(r'^locations/(?P<pk>[0-9]+)/$', 'location_detail'),
+    url(r'^locations/$', 'oei_list'),
+    url(r'^locations/(?P<pk>[0-9]+)/$', 'oei_detail'),
+    url(r'^parameters/$', 'wnsattribute_list'),
+    url(r'^parameters/(?P<pk>[0-9]+)/$', 'wnsattribute_detail')
+    
     #url(r'^', include(router.urls)),
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # url(r'^something/',
