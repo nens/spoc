@@ -43,14 +43,14 @@ class OEISerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.OEI
-        fields = ('url', 'id', 'objectid', 'mpnident', 'mpnomschr', 'mpndatin')
+        fields = ('url', 'objectid', 'mpnident', 'mpnomschr', 'mpndatin')
 
 
 class WNSAttributeSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.WNSAttribute
-        fields = ('url', 'id', 'wnsid', 'wnsname', 'wnshmax', 'wnshmin', 'wnssmax', 'wnssmin')
+        fields = ('url', 'wnsid', 'wnsname', 'wnshmax', 'wnshmin', 'wnssmax', 'wnssmin')
 
 
 class LocationWNSSerializer(serializers.ModelSerializer):
