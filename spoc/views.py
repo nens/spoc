@@ -36,8 +36,8 @@ from rest_framework.decorators import api_view
 @api_view(('GET',))
 def api_root(request, format=None):
     return Response({
-        'locations': reverse('oei_list', request=request, format=format),
-        'parameters': reverse('wnsattribute_list', request=request, format=format)
+        'locations': reverse('oei-list', request=request, format=format),
+        'parameters': reverse('wnsattribute-list', request=request, format=format)
     })
 
 
@@ -48,7 +48,8 @@ def oei_list(request):
     """
     if request.method == 'GET':
         locations = models.OEI.objects.all()
-        serializer = serializers.OEISerializer(locations, many=True)
+        serializer = serializers.OEISerializer(locations, many=True,
+                                               context={'request': request})
         return Response(serializer.data)
 
 
@@ -63,7 +64,7 @@ def oei_detail(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = serializers.OEISerializer(location)
+        serializer = serializers.OEISerializer(location, context={'request': request})
         return Response(serializer.data)
 
 
@@ -74,7 +75,8 @@ def wnsattribute_list(request):
     """
     if request.method == 'GET':
         wnsattributes = models.WNSAttribute.objects.all()
-        serializer = serializers.WNSAttributeSerializer(wnsattributes, many=True)
+        serializer = serializers.WNSAttributeSerializer(wnsattributes, many=True,
+                                                        context={'request': request})
         return Response(serializer.data)
 
 
@@ -89,7 +91,8 @@ def wnsattribute_detail(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = serializers.WNSAttributeSerializer(wnsattribute)
+        serializer = serializers.WNSAttributeSerializer(wnsattribute,
+                                                        context={'request': request})
         return Response(serializer.data)
 
 
@@ -100,7 +103,8 @@ def location_list(request):
     """
     if request.method == 'GET':
         locations = models.Location.objects.all()
-        serializer = serializers.LocationSerializer(locations, many=True)
+        serializer = serializers.LocationSerializer(locations, many=True,
+                                                    context={'request': request})
         return Response(serializer.data)
 
     elif request.method == 'POST':

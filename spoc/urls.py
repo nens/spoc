@@ -35,10 +35,10 @@ urlpatterns = patterns(
     #url(r'^locations/$', 'location_list'),
     #url(r'^locations/(?P<pk>[0-9]+)/$', 'location_detail'),
     url(r'^$', 'api_root'),
-    url(r'^locations/$', 'oei_list', name='oei_list'),
-    url(r'^locations/(?P<pk>[0-9]+)/$', 'oei_detail', name='oei_detail'),
-    url(r'^parameters/$', 'wnsattribute_list', name='wnsattribute_list'),
-    url(r'^parameters/(?P<pk>[0-9]+)/$', 'wnsattribute_detail', name='wnsattribute_detail')
+    url(r'^locations/$', 'oei_list', name='oei-list'),
+    url(r'^locations/(?P<pk>[0-9]+)/$', 'oei_detail', name='oei-detail'),
+    url(r'^parameters/$', 'wnsattribute_list', name='wnsattribute-list'),
+    url(r'^parameters/(?P<pk>[0-9]+)/$', 'wnsattribute_detail', name='wnsattribute-detail')
     
     
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
