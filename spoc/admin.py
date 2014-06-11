@@ -8,4 +8,5 @@ from django.contrib import admin
 from spoc import models
 
 
-admin.site.register(models.Location)
+admin.site.register(models.OEI)
+admin.site.register(models.WNSAttribute)
