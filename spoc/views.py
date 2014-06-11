@@ -10,6 +10,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from rest_framework import status
+from rest_framework.reverse import reverse
 # from django.core.urlresolvers import reverse
 
 from spoc import models
@@ -32,10 +33,18 @@ from rest_framework.decorators import api_view
 #         super(JSONResponse, self).__init__(content, **kwargs)
 
 
+@api_view(('GET',))
+def api_root(request, format=None):
+    return Response({
+        'locations': reverse('oei_list', request=request, format=format),
+        'parameters': reverse('wnsattribute_list', request=request, format=format)
+    })
+
+
 @api_view(['GET'])
 def oei_list(request):
     """
-    List all loction of OEI model.
+    List all locations.
     """
     if request.method == 'GET':
         locations = models.OEI.objects.all()

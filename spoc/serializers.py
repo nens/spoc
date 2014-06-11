@@ -39,8 +39,7 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = ('id', 'locationId', 'name')
 
 
-class OEISerializer(serializers.ModelSerializer):
-
+class OEISerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.OEI
         fields = ('id', 'objectid', 'mpnident', 'mpnomschr', 'mpndatin')
