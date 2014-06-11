@@ -36,7 +36,7 @@ class LocationSerializer(serializers.ModelSerializer):
     #     return Location(**attrs)
     class Meta:
         model = models.Location
-        fields = ('id', 'locationId', 'name', 'linenos', 'language', 'style')
+        fields = ('id', 'locationId', 'name')
 
 
 class OEISerializer(serializers.ModelSerializer):

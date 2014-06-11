@@ -13,7 +13,6 @@ install_requires = [
     'django-celery',
     'django-extensions',
     'django-nose',
-    'django-pygments',
     'django-jsonfield',
     'gunicorn',
     'python-memcached',
