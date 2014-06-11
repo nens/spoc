@@ -65,7 +65,7 @@ def wnsattribute_list(request):
     """
     if request.method == 'GET':
         wnsattributes = models.WNSAttribute.objects.all()
-        serializer = serializers.OEISerializer(wnsattributes, many=True)
+        serializer = serializers.WNSAttributeSerializer(wnsattributes, many=True)
         return Response(serializer.data)
 
 
