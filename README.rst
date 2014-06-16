@@ -65,3 +65,15 @@ WMS layer::
 Start the server::
 
     $ bin/django runserver
+
+
+CORS settings
+-------------------------------------
+In case of the intraction between different domains set for production
+
+    CORS_ORIGIN_ALLOW_ALL = False
+
+    CORS_ORIGIN_WHITELIST = (
+        'http://xxxxx.xx',
+    )
+
