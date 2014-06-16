@@ -155,6 +155,7 @@ MIDDLEWARE_CLASSES = (
     # Gzip needs to be at the top.
     'django.middleware.gzip.GZipMiddleware',
     # Below is the default list, don't modify it.
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -174,6 +175,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'corsheaders',
     'gunicorn',
     'rest_framework',
     'markdown',
@@ -196,7 +198,7 @@ SENTRY_DSN = 'http://some:thing@sentry.lizardsystem.nl/1'
 
 # TODO: add gauges ID here. Generate one separately for the staging, too.
 UI_GAUGES_SITE_ID = ''  # Staging has a separate one.
-
+CORS_ORIGIN_ALLOW_ALL = False
 
 try:
     from spoc.localproductionsettings import *

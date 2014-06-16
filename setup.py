@@ -11,6 +11,7 @@ long_description = '\n\n'.join([
 install_requires = [
     'Django >= 1.6',
     'django-celery',
+    'django-cors-headers',
     'django-extensions',
     'django-nose',
     'django-jsonfield',
