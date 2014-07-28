@@ -1,9 +1,17 @@
 from django.forms import widgets
 from rest_framework import serializers
+from rest_framework import pagination
 from spoc import models
 
 
-class LocationSerializer(serializers.ModelSerializer):
+class LocationSortSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.LocationSort
+        filds = ('sort',)
+
+
+class LocationSerializer(serializers.HyperlinkedModelSerializer):
     # pk = serializers.Field()  # Note: `Field` is an untyped read-only field.
     # locationId = serializers.CharField(required=False,
     #                                    max_length=255)
@@ -34,9 +42,11 @@ class LocationSerializer(serializers.ModelSerializer):
 
     #     # Create new instance
     #     return Location(**attrs)
+    sort = LocationSortSerializer()
+    
     class Meta:
         model = models.Location
-        fields = ('id', 'locationId', 'name')
+        fields = ('url', 'locationid', 'locationname', 'sort', 'gpgzmrpl', 'gpgwntpl')
 
 
 class OEISerializer(serializers.HyperlinkedModelSerializer):
@@ -58,3 +68,46 @@ class LocationWNSSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LocationWNS
         fields = ('id', 'objectid', 'wnsid')
+
+
+class SourceSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.Source
+        fields = ('source_type',)
+
+
+class ParameterSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.Parameter
+        fields = ('id', 'name')
+
+
+class HeaderSerializer(serializers.HyperlinkedModelSerializer):
+    
+    source = SourceSerializer()
+    parameter = ParameterSerializer()
+
+    class Meta:
+        model = models.Header
+        fields = ('url', 'id', 'locationid', 'locationname', 'source', 'parameter')
+
+
+class LocationHeaderSerializer(serializers.HyperlinkedModelSerializer):
+#class LocationHeaderSerializer(serializers.ModelSerializer):
+    header = HeaderSerializer()
+    oei_location = LocationSerializer()
+    next = pagination.NextPageField(source='*')
+    prev = pagination.PreviousPageField(source='*')
+
+    class Meta:
+        model = models.LocationHeader
+        fields = ('url', 'id', 'oei_location', 'header')
+        #fields = ('id',)
+
+
+class PaginatedLocationHeaderSerializer(pagination.PaginationSerializer):
+
+    class Meta:
+        object_serializer_class = LocationHeaderSerializer

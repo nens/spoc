@@ -29,7 +29,15 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': '',  # empty string for localhost.
         'PORT': '',  # empty string for default.
-        }
+        },
+    'kwk': {
+        'NAME': 'oei',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': 'buildout',
+        'PASSWORD': 'buildout',
+        'HOST': 'vmhost',
+        'PORT': '5432',
+        },
     }
 
 

@@ -77,3 +77,30 @@ In case of the intraction between different domains set for production
         'http://xxxxx.xx',
     )
 
+
+Usage
+--------------------------------------
+1. Add sources using admin interface. There are 2 types of sources: pixml and csv.
+2. Synchronize OEI-location running 
+   
+   $ bin/django sync_oei
+
+3. Import or update parameters from a csv-file running
+   
+   $ bin/django sync_parameters --f=/path/to/csv/file/paramaters.csv
+
+4. Import or update timeseries headers from scada-files (csv or pixml)
+
+   $ bin/django scada_import
+
+5. Combine the oei-locations with headers
+
+   $ bin/django mearge_locations
+
+
+REST
+------------------------------
+QueryParameters for /locations
+
+page=1 (deafault = 1)
+items_per_page=20 (default = 20)

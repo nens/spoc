@@ -6,3 +6,6 @@ Changelog of spoc
 ----------------
 
 - Initial project structure created with nensskel 1.32.
+- Add datamodel
+- Add serializers
+- Add pagination
