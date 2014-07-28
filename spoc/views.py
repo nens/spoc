@@ -61,7 +61,6 @@ def location_header_list(request):
             items = ITEMS_PER_PAGE
 
         paginator = Paginator(queryset, items)
-        import pdb; pdb.set_trace()
         try:
             locations = paginator.page(page)
         except PageNotAnInteger:
