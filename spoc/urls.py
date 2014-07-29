@@ -32,18 +32,14 @@ router = routers.DefaultRouter()
 urlpatterns = patterns(
     'spoc.views',
     url(r'^admin/', include(admin.site.urls)),
-    #url(r'^locations/$', 'location_list'),
-    #url(r'^locations/(?P<pk>[0-9]+)/$', 'location_detail'),
     url(r'^$', 'api_root'),
-    #url(r'^locations/$', 'oei_list', name='oei-list'),
-    url(r'^locations/$', 'location_header_list', name='location-header-list'),
-    #url(r'^locations/(?P<pk>[0-9]+)/$', 'oei_detail', name='oei-detail'),
-    url(r'^locations/(?P<pk>[0-9]+)/$', 'location_header_detail', name='locationheader-detail'),
-    url(r'^headers/(?P<pk>[0-9]+)/$', 'header_detail', name='header-detail'),
-    url(r'^oeilocations/(?P<pk>[a-zA-Z0-9_.-]+)/$', 'location_detail', name='location-detail'),
-
-    url(r'^parameters/$', 'wnsattribute_list', name='wnsattribute-list'),
-    url(r'^parameters/(?P<pk>[0-9]+)/$', 'wnsattribute_detail', name='wnsattribute-detail')
+    url(r'^locations/$', 'location_list', name='location-list'),
+    url(r'^locations/(?P<pk>[0-9]+)/$', 'location_detail', name='location-detail'),
+    url(r'^scadalocations/(?P<pk>[a-zA-Z0-9_.-]+)/$', 'scadalocation_detail', name='scadalocation-detail'),
+    url(r'^oeilocations/(?P<pk>[a-zA-Z0-9_.-]+)/$', 'oeilocation_detail', name='oeilocation-detail'),
+    url(r'^scadalocations/headers/(?P<pk>[a-zA-Z0-9_.-]+)/$', 'header_detail', name='header-detail'),
+    #url(r'^parameters/$', 'wnsattribute_list', name='wnsattribute-list'),
+    #url(r'^parameters/(?P<pk>[0-9]+)/$', 'wnsattribute_detail', name='wnsattribute-detail')
     
     
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

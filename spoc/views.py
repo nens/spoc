@@ -38,20 +38,20 @@ from rest_framework.decorators import api_view
 def api_root(request, format=None):
     return Response({
         'locations': reverse('location-header-list', request=request, format=format),
-        'parameters': reverse('wnsattribute-list', request=request, format=format)
+        #'parameters': reverse('wnsattribute-list', request=request, format=format)
     })
 
 
 
 @api_view(['GET'])
-def location_header_list(request):
+def location_list(request):
     """
     List all locations.
     """
     ITEMS_PER_PAGE = 20
 
     if request.method == 'GET':
-        queryset = models.LocationHeader.objects.all()
+        queryset = models.Location.objects.all()
         
         page = request.QUERY_PARAMS.get('page')
         items = request.QUERY_PARAMS.get('items_per_page', None)
@@ -68,23 +68,55 @@ def location_header_list(request):
         except EmptyPage:
             locations = paginator.page(paginator.num_pages)
 
-        serializer = serializers.PaginatedLocationHeaderSerializer(
+        serializer = serializers.PaginatedLocationSerializer(
             locations, context={'request': request})
         return Response(serializer.data)
 
 
 @api_view(['GET'])
-def location_header_detail(request, pk):
+def location_detail(request, pk):
     """
     Retrieve a location from LocatonHeader table.
     """
     try:
-        location = models.LocationHeader.objects.get(pk=pk)
-    except models.LocationHeader.DoesNotExist:
+        location = models.Location.objects.get(pk=pk)
+    except models.Location.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = serializers.LocationHeaderSerializer(
+        serializer = serializers.LocationSerializer(
+            location, context={'request': request})
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def oeilocation_detail(request, pk):
+    """
+    Retrieve a oei-location from OEILocation table.
+    """
+    try:
+        location = models.OEILocation.objects.get(pk=pk)
+    except models.OEILocation.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = serializers.OEILocationSerializer(
+            location, context={'request': request})
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def scadalocation_detail(request, pk):
+    """
+    Retrieve a scada-location from ScadaLocation table.
+    """
+    try:
+        location = models.ScadaLocation.objects.get(pk=pk)
+    except models.ScadaLocation.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = serializers.ScadaLocationSerializer(
             location, context={'request': request})
         return Response(serializer.data)
 
@@ -160,39 +192,39 @@ def wnsattribute_detail(request, pk):
         return Response(serializer.data)
 
 
-@api_view(['GET', 'POST'])
-def location_list(request):
-    """
-    List all locations, or create a new location.
-    """
-    if request.method == 'GET':
-        locations = models.Location.objects.all()
-        serializer = serializers.LocationSerializer(locations, many=True,
-                                                    context={'request': request})
-        return Response(serializer.data)
+# @api_view(['GET', 'POST'])
+# def location_list(request):
+#     """
+#     List all locations, or create a new location.
+#     """
+#     if request.method == 'GET':
+#         locations = models.Location.objects.all()
+#         serializer = serializers.LocationSerializer(locations, many=True,
+#                                                     context={'request': request})
+#         return Response(serializer.data)
 
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = serializers.LocationSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     elif request.method == 'POST':
+#         data = JSONParser().parse(request)
+#         serializer = serializers.LocationSerializer(data=data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
-def location_detail(request, pk):
-    """
-    Retrieve, update or delete a location.
-    """
-    try:
-        location = models.Location.objects.get(pk=pk)
-    except models.Location.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+# @api_view(['GET'])
+# def location_detail(request, pk):
+#     """
+#     Retrieve, update or delete a location.
+#     """
+#     try:
+#         location = models.Location.objects.get(pk=pk)
+#     except models.Location.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    if request.method == 'GET':
-        serializer = serializers.LocationSerializer(location, context={'request': request})
-        return Response(serializer.data)
+#     if request.method == 'GET':
+#         serializer = serializers.LocationSerializer(location, context={'request': request})
+#         return Response(serializer.data)
 
         
 # @api_view(['GET', 'PUT', 'DELETE'])

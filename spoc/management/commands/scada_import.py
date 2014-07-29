@@ -6,10 +6,10 @@ from lxml import objectify
 from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
-from spoc.models import LocationHeader, Header, Source, Parameter
+from spoc.models import ScadaLocation, Header, Source, Parameter
 
 class Command(BaseCommand):
-    help = '''Import headers from scada. Actions on import: update, create.'''
+    help = '''Import location, headers from scada. Actions on import: update, create.'''
     
     option_list = BaseCommand.option_list + (
         make_option('--scada',
@@ -25,12 +25,20 @@ class Command(BaseCommand):
             self.stdout.write("Parameter {} does not exist.".format(parameterid))
         return parameter
 
-    def get_or_create_header(self, locationid, parameterid, source):
+    def get_or_create_scadalocation(self, id, name):
+        try:
+            location = ScadaLocation.objects.get(locationid=id)
+        except ScadaLocation.DoesNotExist:
+            location = ScadaLocation(locationid=id, locationname=name)
+            location.save()
+        return location
+            
+    def get_or_create_header(self, location, parameterid, source):
         try:
             header = Header.objects.get(
-                locationid=locationid, parameter__id=parameterid)
+                location=location, parameter__id=parameterid)
         except Header.DoesNotExist:
-            header = Header(locationid=locationid,
+            header = Header(location=location,
                             source=source,
                             parameter=self.get_parameter(parameterid))
             header.save()
@@ -47,7 +55,8 @@ class Command(BaseCommand):
                     locationid = s.header.locationId
                     locationname = s.header.stationName
                     parameterid = s.header.parameterId
-                    header = self.get_or_create_header(locationid, parameterid, source)
+                    location = self.get_or_create_scadalocation(locationid, locationname)
+                    header = self.get_or_create_header(location, parameterid, source)
                     header.locationname = locationname
                     header.save()
 
@@ -60,7 +69,8 @@ class Command(BaseCommand):
                 locationname = reader.next()[1]
                 locationid = reader.next()[1]
                 parameterid = reader.next()[1]
-                header = self.get_or_create_header(locationid, parameterid, source)
+                location = self.get_or_create_scadalocation(locationid, locationname)
+                header = self.get_or_create_header(location, parameterid, source)
                 header.locationname = locationname
                 header.save()
                 

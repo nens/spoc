@@ -1,46 +1,47 @@
 
 from django.core.management.base import BaseCommand, CommandError
-from spoc.models import Location, LocationHeader, Header
+from spoc.models import Location, ScadaLocation, OEILocation
 
 class Command(BaseCommand):
     help = 'Merge location from oei and header tables.'
             
     def handle(self, *args, **options):
-        locations = Location.objects.all()
+        oei_locations = OEILocation.objects.all()
         
-        for location in locations:
-            oei_locations = LocationHeader.objects.filter(oei_location=location)
-            headers = LocationHeader.objects.filter(header__locationid=location.locationid)
+        for oei_location in oei_locations:
+            m_oei_locations = Location.objects.filter(oei_location=oei_location)
+            m_scada_locations = Location.objects.filter(
+                scada_location__locationid=oei_location.locationid)
 
-            if not oei_locations.exists() and headers.exists():
-                location_header = headers[0]
-                location_header.oei_location = location
-                location_header.save()
-            elif not oei_locations.exists() and not headers.exists():
-                location_header = LocationHeader(oei_location=location)
-                location_header.save()
+            if not m_oei_locations.exists() and m_scada_locations.exists():
+                location = m_scada_locations[0]
+                location.oei_location = oei_location
+                location.save()
+            elif not m_oei_locations.exists() and not m_scada_locations.exists():
+                location = Location(oei_location=oei_location)
+                location.save()
             else:
-                # oei_locations.exists() and not headers.exists()
-                # oei_locations.exists() and headers.exists()
+                # m_oei_locations.exists() and not m_scada_locations.exists()
+                # m_oei_locations.exists() and m_scada_locations.exists()
                 # update or doe nothing
                 continue
 
-        headers = Header.objects.all()
-        for header in headers:
-            oei_locations = LocationHeader.objects.filter(
-                oei_location__locationid=header.locationid)
-            headers = LocationHeader.objects.filter(header=header)
+        scada_locations = ScadaLocation.objects.all()
+        for scada_location in scada_locations:
+            m_oei_locations = Location.objects.filter(
+                oei_location__locationid=scada_location.locationid)
+            m_scada_locations = Location.objects.filter(scada_location=scada_location)
 
-            if oei_locations.exists() and not headers.exists():
-                location_header = oei_locations[0]
-                location_header.header = header
-                location_header.save()
-            elif not oei_locations.exists() and not headers.exists():
-                location_header = LocationHeader(header=header)
-                location_header.save()
+            if m_oei_locations.exists() and not m_scada_locations.exists():
+                location = m_oei_locations[0]
+                location.scada_location = scada_location
+                location.save()
+            elif not m_oei_locations.exists() and not m_scada_locations.exists():
+                location = Location(scada_location=scada_location)
+                location.save()
             else:
-                # oei_locations.exists() and not headers.exists()
-                # oei_locations.exists() and headers.exists()
+                # m_oei_locations.exists() and not m_scada_locations.exists()
+                # m_oei_locations.exists() and m_scada_locations.exists()
                 # update or doe nothing
                 continue
                             

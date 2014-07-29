@@ -1,6 +1,6 @@
 
 from django.core.management.base import BaseCommand, CommandError
-from spoc.models import Location, LocationSort, Gemal
+from spoc.models import OEILocation, LocationSort, Gemal
 
 class Command(BaseCommand):
     help = 'Import oei locations.'
@@ -20,17 +20,17 @@ class Command(BaseCommand):
         locations = Gemal.objects.using('kwk').all()
         for location in locations:
             try:
-                oei_location = Location.objects.get(locationid=location.KWKIDENT)
+                oei_location = OEILocation.objects.get(locationid=location.KWKIDENT)
                 oei_location.locationname = location.KWKNAAM
                 oei_location.sort=self.get_location_sort(location.KWKSOORT)
                 oei_location.objectid=location.ID_INT
                 oei_location.gpgzmrpl=location.GPGZMRPL
                 oei_location.gpgwntpl=location.GPGWNTPL
                 oei_location.save()
-            except Location.DoesNotExist:
+            except OEILocation.DoesNotExist:
                 self.stdout.write('Insert a new kwk "%s"' % location.KWKIDENT)
                 
-                Location(locationid=location.KWKIDENT,
+                OEILocation(locationid=location.KWKIDENT,
                          locationname=location.KWKNAAM,
                          sort=self.get_location_sort(location.KWKSOORT),
                          objectid=location.ID_INT,

@@ -20,7 +20,7 @@ class LocationSort(models.Model):
         ordering = ['sort']
 
 
-class Location(models.Model):
+class OEILocation(models.Model):
     """Contain location imported from OEI management system."""
  
     locationid = models.CharField(primary_key=True, max_length=100)
@@ -35,9 +35,7 @@ class Location(models.Model):
         return self.locationid
 
     class Meta:
-        verbose_name = "location"
-        verbose_name_plural = "location"
-        #ordering = ['created']
+        ordering = ['locationname']
 
 
 class Parameter(models.Model):
@@ -70,85 +68,65 @@ class Source(models.Model):
         ordering = ['name']
 
 
+class ScadaLocation(models.Model):
+    """Location from scada."""
+
+    locationid = models.CharField(primary_key=True, max_length=100)
+    locationname = models.CharField(max_length=255, null=True, blank=True)
+
+    def __unicode__(self):
+        if self.locationname is None:
+            return self.locationid
+        else:
+            return self.locationname
+
+    class Meta:
+        ordering = ['locationname']
+
+
 class Header(models.Model):
     """Locations, parameter from scada."""
-    locationid = models.CharField(max_length=100)
-    locationname = models.CharField(max_length=255, null=True, blank=True)
+    location = models.ForeignKey(ScadaLocation, related_name='headers')
     parameter = models.ForeignKey(Parameter, null=True, blank=True)
     unit = models.CharField(max_length=30, null=True, blank=True)
     value = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
     begintime = models.DateTimeField(null=True, blank=True)
     endtime = models.DateTimeField(null=True, blank=True)
     source = models.ForeignKey(Source)
+    hardmax = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    hardmin = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
 
     class Meta:
-        ordering = ['locationid']
+        ordering = ['location__locationid']
 
     def __unicode__(self):
         parameterid = None
         if self.parameter is not None:
             parameterid = self.parameter.id
-        return "{0} -- {1}".format(self.locationid, parameterid)
+        return "{0} -- {1}".format(self.location.locationid, parameterid)
 
 
-class LocationHeader(models.Model):
+class Location(models.Model):
     """Location from management end real-world envarement."""
-    oei_location = models.ForeignKey(Location, null=True, blank=True,
+    oei_location = models.ForeignKey(OEILocation, null=True, blank=True,
                                      help_text='Locations from oei management system.')
-    header = models.ForeignKey(Header, null=True, blank=True,
-                                   help_text='TimeSeries headers from scadas.')
+    scada_location = models.ForeignKey(ScadaLocation, null=True, blank=True,
+                                   help_text='Locations from scadas.')
+    fews = models.BooleanField(default=False)
+    forward = models.BooleanField(default=False)
+    visible = models.BooleanField(default=True)
 
     def __unicode__(self):
         m = None
         r = None
         if self.oei_location is not None:
             m = self.oei_location.locationid
-        if self.header is not None:
-            r = self.header.locationid
+        if self.scada_location is not None:
+            r = self.scada_location.locationid
         return "OEI: {0} -- SCADA: {1}".format(m, r)
 
     class Meta:
         ordering = ['oei_location__locationid']
-
-
-class OEI(models.Model):
-
-    objectid = models.IntegerField(null=False, blank=False)
-    mpnident = models.CharField(max_length=24, null=False, blank=False)
-    mpnomschr = models.CharField(max_length=100, null=True, blank=True)
-    mpnsoort = models.IntegerField(null=True, blank=True)
-    mpndatin = models.DateTimeField(null=True, blank=True)
-    diffinfo = jsonfield.JSONField(null=True, blank=True)    
-
-    class Meta:
-        verbose_name = "oei"
-        verbose_name_plural = "oei"
-        #ordering = ['']
-
-
-class WNSAttribute(models.Model):
-    
-    wnsid = models.IntegerField(null=False, blank= False)
-    wnsname = models.CharField(max_length=254, null=True, blank=True)
-    wnshmax = models.IntegerField(null=True, blank=True)
-    wnshmin = models.IntegerField(null=True, blank=True)
-    wnssmax = models.IntegerField(null=True, blank=True)
-    wnssmin = models.IntegerField(null=True, blank=True)
-    
-    class Meta:
-        verbose_name = "wnsattribute"
-        verbose_name_plural = "wnsattribute"
-        ordering = ['wnsname']
-
-
-class LocationWNS(models.Model):
-
-    objectid = models.ForeignKey(OEI)
-    wnsid = models.ForeignKey(WNSAttribute)
-
-    class Meta:
-        verbose_name = "locationwns"
-        verbose_name_plural = "locationwns"
 
 
 class Gemal(models.Model):

@@ -89,11 +89,11 @@ Usage
    
    $ bin/django sync_parameters --f=/path/to/csv/file/paramaters.csv
 
-4. Import or update timeseries headers from scada-files (csv or pixml)
+4. Import or update scada-locations and timeseries headers from scada-files (csv or pixml)
 
    $ bin/django scada_import
 
-5. Combine the oei-locations with headers
+5. Combine the oei-locations with scada-locations
 
    $ bin/django mearge_locations
 
