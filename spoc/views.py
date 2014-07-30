@@ -37,8 +37,7 @@ from rest_framework.decorators import api_view
 @api_view(('GET',))
 def api_root(request, format=None):
     return Response({
-        'locations': reverse('location-header-list', request=request, format=format),
-        #'parameters': reverse('wnsattribute-list', request=request, format=format)
+        'locations': reverse('location-list', request=request, format=format)
     })
 
 
