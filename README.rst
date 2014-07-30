@@ -102,6 +102,7 @@ REST
 ------------------------------
 Update locatons:
   curl https://spoc.staging.lizard.net/locations/1155/ -d '{"visible": true, "fews": false}' -X POST -u spoc:spoc
+  
   editable fields: "visible", "fews", "forward"
 
 Update headers:
