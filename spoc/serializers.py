@@ -36,17 +36,17 @@ class ParameterSerializer(serializers.HyperlinkedModelSerializer):
 
 class HeaderSerializer(serializers.HyperlinkedModelSerializer):
     
-    source = SourceSerializer()
-    parameter = ParameterSerializer()
+    source = SourceSerializer(read_only=True)
+    parameter = ParameterSerializer(read_only=True)
+    location = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = models.Header
-        fields = ('url', 'id', 'location', 'parameter', 'source')
+        fields = ('url', 'location', 'parameter', 'source', 'hardmax', 'hardmin')
 
 
 class ScadaLocationSerializer(serializers.HyperlinkedModelSerializer):
     
-    #headers = serializers.RelatedField(many=True, read_only=True)
     headers = HeaderSerializer()
     class Meta:
         model = models.ScadaLocation
@@ -55,14 +55,14 @@ class ScadaLocationSerializer(serializers.HyperlinkedModelSerializer):
 
 class LocationSerializer(serializers.HyperlinkedModelSerializer):
 
-    scada_location = ScadaLocationSerializer()
-    oei_location = OEILocationSerializer()
+    scada_location = ScadaLocationSerializer(read_only=True)
+    oei_location = OEILocationSerializer(read_only=True)
     next = pagination.NextPageField(source='*')
     prev = pagination.PreviousPageField(source='*')
 
     class Meta:
         model = models.Location
-        fields = ('url', 'id', 'oei_location', 'scada_location')
+        fields = ('url', 'fews', 'forward', 'visible', 'oei_location', 'scada_location')
 
 
 class PaginatedLocationSerializer(pagination.PaginationSerializer):

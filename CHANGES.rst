@@ -9,3 +9,5 @@ Changelog of spoc
 - Add datamodel
 - Add serializers
 - Add pagination
+- Implement POST http-method on location and header source
+- Add authentication middelware 

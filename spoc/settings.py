@@ -193,6 +193,13 @@ INSTALLED_APPS = (
 #     ]
 # }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
 # TODO: Put your real url here to configure Sentry.
 SENTRY_DSN = 'http://some:thing@sentry.lizardsystem.nl/1'
 

@@ -3,7 +3,7 @@
 from spoc.settings import *
 
 DEBUG = True
-
+CORS_ORIGIN_ALLOW_ALL = True
 # By default, var/log/django.log gets WARN level logging, the console gets
 # DEBUG level logging.
 
