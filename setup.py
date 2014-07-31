@@ -19,6 +19,7 @@ install_requires = [
     'python-memcached',
     'werkzeug',
     'djangorestframework',
+    'cx_Oracle',
     'south',
     'markdown',
     ],

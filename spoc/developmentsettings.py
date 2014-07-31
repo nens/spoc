@@ -38,6 +38,14 @@ DATABASES = {
         'HOST': 'vmhost',
         'PORT': '5432',
         },
+    'kwk-oracle': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'HHNK1',
+        'USER': 'SPOC',
+        'PASSWORD': 'spoc123',
+        'HOST': '192.168.1.133',
+        'PORT': '1521',
+        },
     }
 
 

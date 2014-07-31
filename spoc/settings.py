@@ -167,7 +167,7 @@ MIDDLEWARE_CLASSES = (
 
 INSTALLED_APPS = (
     'spoc',
-    'south',
+    #'south',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
