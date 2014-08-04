@@ -97,6 +97,10 @@ Usage
 
    $ bin/django mearge_locations
 
+6. Create configuration file
+
+   $ bin/django export_to_dbf
+
 
 REST
 ------------------------------
