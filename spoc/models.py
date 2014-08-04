@@ -25,12 +25,14 @@ class OEILocation(models.Model):
  
     locationid = models.CharField(primary_key=True, max_length=100)
     locationname = models.CharField(max_length=255, null=True, blank=True)
+    gpgident = models.CharField(max_length=10, null=True, blank=True)
     sort = models.ForeignKey(LocationSort)
     objectid = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     gpgzmrpl = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
     gpgwntpl = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
-
+    x = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=19)
+    y = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=19)
     def __unicode__(self):
         return self.locationid
 

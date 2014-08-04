@@ -22,10 +22,13 @@ class Command(BaseCommand):
             try:
                 oei_location = OEILocation.objects.get(locationid=location.KWKIDENT)
                 oei_location.locationname = location.KWKNAAM
-                oei_location.sort=self.get_location_sort(location.KWKSOORT)
-                oei_location.objectid=location.ID_INT
-                oei_location.gpgzmrpl=location.GPGZMRPL
-                oei_location.gpgwntpl=location.GPGWNTPL
+                oei_location.sort = self.get_location_sort(location.KWKSOORT)
+                oei_location.objectid = location.ID_INT
+                oei_location.gpgident = location.GPGIDENT
+                oei_location.gpgzmrpl = location.GPGZMRPL
+                oei_location.gpgwntpl = location.GPGWNTPL
+                oei_location.x = location.X
+                oei_location.y = location.Y
                 oei_location.save()
             except OEILocation.DoesNotExist:
                 self.stdout.write('Insert a new kwk "%s"' % location.KWKIDENT)

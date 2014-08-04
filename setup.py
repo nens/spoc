@@ -22,6 +22,7 @@ install_requires = [
     'cx_Oracle',
     'south',
     'markdown',
+    'dbfpy',
     ],
 
 tests_require = [
