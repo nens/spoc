@@ -100,20 +100,17 @@ Usage
 
 REST
 ------------------------------
-######Update locatons:
-curl https://spoc.staging.lizard.net/locations/1155/ -d '{"visible": true, "fews": false}' -X POST -u spoc:spoc
+Update locatons:
+  curl https://spoc.staging.lizard.net/locations/1155/ -d '{"visible": true, "fews": false}' -X POST -u spoc:spoc
+  
+  editable fields: "visible", "fews", "forward"
 
-editable fields: "visible", "fews", "forward"
-
-######Update headers:
-curl http://spoc.staging.lizard.net/scadalocations/headers/1690/ -d '{"hardmax": -10}' -X POST -u spoc:spoc
-
-editable fields: "hardmax", "hardmin"
-
-######Retrieve locations
-https://spoc.staging.lizard.net/locations/?items_per_page=2&page=100
-
-optional QueryParameters:
-
-page=1 (deafault = 1)
-items_per_page=20 (default = 20)
+Update headers:
+  curl http://spoc.staging.lizard.net/scadalocations/headers/1690/ -d '{"hardmax": -10}' -X POST -u spoc:spoc
+  
+  editable fields: "hardmax", "hardmin"
+  
+Retrieve locations:
+  https://spoc.staging.lizard.net/locations/?items_per_page=2&page=100
+  
+  optional QueryParameters: page (deafault = 1), items_per_page (default = 20)
