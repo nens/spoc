@@ -28,7 +28,6 @@ class OEILocation(models.Model):
     gpgident = models.CharField(max_length=10, null=True, blank=True)
     sort = models.ForeignKey(LocationSort)
     objectid = models.IntegerField()
-    created = models.DateTimeField(auto_now_add=True)
     gpgzmrpl = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
     gpgwntpl = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
     x = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=19)
@@ -75,6 +74,7 @@ class ScadaLocation(models.Model):
 
     locationid = models.CharField(primary_key=True, max_length=100)
     locationname = models.CharField(max_length=255, null=True, blank=True)
+    source = models.ForeignKey(Source, null=True, blank=True)
 
     def __unicode__(self):
         if self.locationname is None:
@@ -94,7 +94,6 @@ class Header(models.Model):
     value = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
     begintime = models.DateTimeField(null=True, blank=True)
     endtime = models.DateTimeField(null=True, blank=True)
-    source = models.ForeignKey(Source)
     hardmax = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
     hardmin = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
 
@@ -117,6 +116,7 @@ class Location(models.Model):
     fews = models.BooleanField(default=False)
     forward = models.BooleanField(default=False)
     visible = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         m = None
@@ -128,7 +128,7 @@ class Location(models.Model):
         return "OEI: {0} -- SCADA: {1}".format(m, r)
 
     class Meta:
-        ordering = ['oei_location__locationid']
+        ordering = ['created']
 
 
 class Gemal(models.Model):

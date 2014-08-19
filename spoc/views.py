@@ -24,22 +24,52 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from rest_framework.decorators import api_view
 
 
-# class JSONResponse(HttpResponse):
-#     """
-#     An HttpResponse that renders its content into JSON.
-#     """
-#     def __init__(self, data, **kwargs):
-#         content = JSONRenderer().render(data)
-#         kwargs['content_type'] = 'application/json'
-#         super(JSONResponse, self).__init__(content, **kwargs)
+def string_to_bool(bool_string):
+    if bool_string == 'true':
+        return True
+    elif bool_string == 'false':
+        return False
+    else:
+        return None
 
+
+def get_filtered_locationset(queryset, request):
+    
+    visible = string_to_bool(request.QUERY_PARAMS.get('visible', None))
+    fews = string_to_bool(request.QUERY_PARAMS.get('fews', None))
+    forward = string_to_bool(request.QUERY_PARAMS.get('forward', None))
+    oei_location_name = request.QUERY_PARAMS.get('oei_location', None)
+    scada_location_name = request.QUERY_PARAMS.get('scada_location', None)
+    source = request.QUERY_PARAMS.get('source', None)
+    
+    if type(visible).__name__ == 'bool':
+        queryset = queryset.filter(visible=visible)
+    else:
+        queryset = queryset.filter(visible=True)
+
+    if type(fews).__name__ == 'bool':
+        queryset = queryset.filter(fews=fews)
+
+    if type(forward).__name__ == 'bool':
+        queryset = queryset.filter(forward=forward)
+    
+    if type(oei_location_name).__name__ in ['str', 'unicode']:
+        queryset = queryset.filter(oei_location__locationname__icontains=oei_location_name)
+    
+    if type(scada_location_name).__name__ in ['str', 'unicode']:
+        queryset = queryset.filter(scada_location__locationname__icontains=scada_location_name)
+    
+    if type(source).__name__ in ['str', 'unicode']:
+        queryset = queryset.filter(scada_location__source__source_type__iexact=source)
+
+    return queryset
+        
 
 @api_view(('GET',))
 def api_root(request, format=None):
     return Response({
         'locations': reverse('location-list', request=request, format=format)
     })
-
 
 
 @api_view(['GET'])
@@ -50,10 +80,13 @@ def location_list(request):
     ITEMS_PER_PAGE = 20
 
     if request.method == 'GET':
-        queryset = models.Location.objects.all()
-        
+                
         page = request.QUERY_PARAMS.get('page')
-        items = request.QUERY_PARAMS.get('items_per_page', None)
+        items = request.QUERY_PARAMS.get('items_per_page', None) 
+
+        queryset = get_filtered_locationset(
+            models.Location.objects.all(), request)
+
         try:
             items = int(items)
         except:

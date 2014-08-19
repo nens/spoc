@@ -25,21 +25,21 @@ class Command(BaseCommand):
             self.stdout.write("Parameter {} does not exist.".format(parameterid))
         return parameter
 
-    def get_or_create_scadalocation(self, id, name):
+    def get_or_create_scadalocation(self, id, name, source):
         try:
             location = ScadaLocation.objects.get(locationid=id)
         except ScadaLocation.DoesNotExist:
-            location = ScadaLocation(locationid=id, locationname=name)
+            location = ScadaLocation(
+                locationid=id, locationname=name, source=source)
             location.save()
         return location
             
-    def get_or_create_header(self, location, parameterid, source):
+    def get_or_create_header(self, location, parameterid):
         try:
             header = Header.objects.get(
                 location=location, parameter__id=parameterid)
         except Header.DoesNotExist:
             header = Header(location=location,
-                            source=source,
                             parameter=self.get_parameter(parameterid))
             header.save()
         return header
@@ -55,8 +55,8 @@ class Command(BaseCommand):
                     locationid = s.header.locationId
                     locationname = s.header.stationName
                     parameterid = s.header.parameterId
-                    location = self.get_or_create_scadalocation(locationid, locationname)
-                    header = self.get_or_create_header(location, parameterid, source)
+                    location = self.get_or_create_scadalocation(locationid, locationname, source)
+                    header = self.get_or_create_header(location, parameterid)
                     header.locationname = locationname
                     header.save()
 
@@ -69,8 +69,8 @@ class Command(BaseCommand):
                 locationname = reader.next()[1]
                 locationid = reader.next()[1]
                 parameterid = reader.next()[1]
-                location = self.get_or_create_scadalocation(locationid, locationname)
-                header = self.get_or_create_header(location, parameterid, source)
+                location = self.get_or_create_scadalocation(locationid, locationname, source)
+                header = self.get_or_create_header(location, parameterid)
                 header.locationname = locationname
                 header.save()
                 

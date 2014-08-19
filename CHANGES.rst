@@ -11,3 +11,7 @@ Changelog of spoc
 - Add pagination
 - Implement POST http-method on location and header source
 - Add authentication middelware 
+- Move source field to ScadaLocation
+- Move creaded field to Location
+- By default select all visible locations
+- Add Filters visible, fews, forward, oei_location, scada_location, source

@@ -36,21 +36,22 @@ class ParameterSerializer(serializers.HyperlinkedModelSerializer):
 
 class HeaderSerializer(serializers.HyperlinkedModelSerializer):
     
-    source = SourceSerializer(read_only=True)
     parameter = ParameterSerializer(read_only=True)
     location = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = models.Header
-        fields = ('url', 'location', 'parameter', 'source', 'hardmax', 'hardmin')
+        fields = ('url', 'location', 'parameter', 'hardmax', 'hardmin')
 
 
 class ScadaLocationSerializer(serializers.HyperlinkedModelSerializer):
     
+    source = SourceSerializer(read_only=True)
     headers = HeaderSerializer()
+
     class Meta:
         model = models.ScadaLocation
-        fields = ('url', 'locationid', 'locationname', 'headers')
+        fields = ('url', 'locationid', 'locationname', 'source', 'headers')
 
 
 class LocationSerializer(serializers.HyperlinkedModelSerializer):
@@ -62,7 +63,7 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Location
-        fields = ('url', 'fews', 'forward', 'visible', 'oei_location', 'scada_location')
+        fields = ('url', 'fews', 'forward', 'visible', 'created', 'oei_location', 'scada_location')
 
 
 class PaginatedLocationSerializer(pagination.PaginationSerializer):
