@@ -107,6 +107,21 @@ class Header(models.Model):
             parameterid = self.parameter.id
         return "{0} -- {1}".format(self.location.locationid, parameterid)
 
+    @property
+    def validations(self):
+        self.add_validations()
+        return self.validation_set.all()
+
+    def add_validations(self):
+        """Add or delete validations."""
+        validationfields = self.parameter.validationfield_set.all()
+        validations = self.validation_set.all()
+        for validationfield in validationfields:
+            if validationfield not in [v.field for v in validations]:
+                validation = Validation(**{'field': validationfield, 'header': self})
+                validation.save()
+                self.validation_set.add(validation)
+
 
 class Location(models.Model):
     """Location from management end real-world envarement."""
@@ -156,6 +171,9 @@ class ValidationField(models.Model):
         return "{0}:{1}".format(
             self.field.name, self.parameter.id)
 
+    def __str__(self):
+        return str(self.field.name)
+
     class Meta:
         unique_together = (('field', 'parameter'),)
         
@@ -168,7 +186,7 @@ class Validation(models.Model):
                                     decimal_places=3, max_digits=9)
 
         def __unicode__(self):
-            return field
+            return self.field.field.name
 
     
 class Gemal(models.Model):

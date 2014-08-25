@@ -27,7 +27,9 @@ urlpatterns = patterns(
     url(r'^oeilocations/(?P<pk>[a-zA-Z0-9_.-]+)/$',
         'oeilocation_detail', name='oeilocation-detail'),
     url(r'^scadalocations/headers/(?P<pk>[a-zA-Z0-9_.-]+)/$',
-        'header_detail', name='header-detail'),    
+        'header_detail', name='header-detail'),
+    url(r'^validations/(?P<pk>[a-zA-Z0-9_.-]+)/$',
+        'validation_detail', name='validation-detail'),
     
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # url(r'^something/',

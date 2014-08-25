@@ -168,13 +168,34 @@ def header_detail(request, pk):
         header = models.Header.objects.get(pk=pk)
     except models.Header.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
     if request.method == 'GET':
         serializer = serializers.HeaderSerializer(
             header, context={'request': request})
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = serializers.HeaderSerializer(header, request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
+def validation_detail(request, pk):
+    """
+    Retrieve a validation details from Header table.
+    """
+    try:
+        validation = models.Validation.objects.get(pk=pk)
+    except models.Validation.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = serializers.ValidationSerializer(
+            validation, context={'request': request})
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = serializers.ValidationSerializer(validation, request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

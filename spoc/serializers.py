@@ -34,14 +34,24 @@ class ParameterSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name')
 
 
+class ValidationSerializer(serializers.HyperlinkedModelSerializer):
+    
+    field = serializers.CharField(source='field', read_only=True)
+
+    class Meta:
+        model = models.Validation
+        fields = ('url', 'field', 'value')
+
+
 class HeaderSerializer(serializers.HyperlinkedModelSerializer):
     
     parameter = ParameterSerializer(read_only=True)
+    validations = ValidationSerializer(read_only=True)
     location = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = models.Header
-        fields = ('url', 'location', 'parameter', 'hardmax', 'hardmin')
+        fields = ('url', 'location', 'parameter', 'validations')
 
 
 class ScadaLocationSerializer(serializers.HyperlinkedModelSerializer):
