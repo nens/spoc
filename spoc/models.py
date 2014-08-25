@@ -99,6 +99,7 @@ class Header(models.Model):
 
     class Meta:
         ordering = ['location__locationid']
+        unique_together = (('location', 'parameter'),)
 
     def __unicode__(self):
         parameterid = None
@@ -131,6 +132,45 @@ class Location(models.Model):
         ordering = ['created']
 
 
+class Field(models.Model):
+    """The field for validation or formule."""
+    VALIDATION = 'VALIDATION'
+    FORMULA = ''
+    TYPE_CHOICES = (
+        ('VALIDATION', 'Validation'),
+        ('FORMULA', 'Formula'),
+    )
+    name = models.CharField(max_length=50)
+    field_type = models.CharField(max_length=15, choices=TYPE_CHOICES)
+
+    def __unicode__(self):
+        return self.name
+
+
+class ValidationField(models.Model):
+    
+    field = models.ForeignKey(Field)
+    parameter = models.ForeignKey(Parameter)
+
+    def __inicode__(self):
+        return "{0}:{1}".format(
+            self.field.name, self.parameter.id)
+
+    class Meta:
+        unique_together = (('field', 'parameter'),)
+        
+
+class Validation(models.Model):
+
+        field = models.ForeignKey(ValidationField)
+        header = models.ForeignKey(Header)
+        value = models.DecimalField(null=True, blank=True,
+                                    decimal_places=3, max_digits=9)
+
+        def __unicode__(self):
+            return field
+
+    
 class Gemal(models.Model):
     
     ID_INT = models.CharField(primary_key=True, unique=True, max_length=64)

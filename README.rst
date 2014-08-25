@@ -87,7 +87,7 @@ Usage
 
 3. Import or update parameters from a csv-file running
    
-   $ bin/django sync_parameters --f=/path/to/csv/file/paramaters.csv
+   $ bin/django sync_parameters --f=/{buildout_dir}/spoc/data/paramaters.csv
 
 4. Import or update scada-locations and timeseries headers from scada-files (csv or pixml)
 
@@ -100,6 +100,10 @@ Usage
 6. Create configuration file
 
    $ bin/django export_to_dbf
+
+7. Insert parameters, fields, validation fields
+   
+   $ bin/django sync_validations --f=/{buildout_dir}/spoc/data/validations.csv
 
 
 REST
