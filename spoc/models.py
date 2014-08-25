@@ -94,8 +94,6 @@ class Header(models.Model):
     value = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
     begintime = models.DateTimeField(null=True, blank=True)
     endtime = models.DateTimeField(null=True, blank=True)
-    hardmax = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
-    hardmin = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
 
     class Meta:
         ordering = ['location__locationid']
