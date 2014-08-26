@@ -101,7 +101,7 @@ Usage
 
    $ bin/django export_to_dbf
 
-7. Insert parameters, fields, validation fields
+7. Insert parameters, fields, validation fields, headerformulas
    
    $ bin/django sync_validations --f=/{buildout_dir}/spoc/data/validations.csv
 

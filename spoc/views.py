@@ -200,3 +200,26 @@ def validation_detail(request, pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET', 'POST'])
+def headerformula_detail(request, pk):
+    """
+    Retrieve a formula details from HeaderFormul table.
+    """
+    try:
+        formula = models.HeaderFormula.objects.get(pk=pk)
+    except models.HeaderFormula.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = serializers.HeaderFormulaSerializer(
+            formula, context={'request': request})
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = serializers.HeaderFormulaSerializer(formula, request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

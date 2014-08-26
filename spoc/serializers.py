@@ -43,15 +43,27 @@ class ValidationSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'field', 'value')
 
 
+class HeaderFormulaSerializer(serializers.HyperlinkedModelSerializer):
+    header = serializers.PrimaryKeyRelatedField(read_only=True)
+    dstop = serializers.DateField(required=False)
+    dstart = serializers.DateField(required=False)
+
+    class Meta:
+        model = models.HeaderFormula
+        fields = ('url', 'header', 'dstart', 'dstop', 'coef1','coef2',
+                  'coef3', 'coef4', 'coef5', 'coef6', 'coef7', 'coef8')
+
+
 class HeaderSerializer(serializers.HyperlinkedModelSerializer):
     
     parameter = ParameterSerializer(read_only=True)
     validations = ValidationSerializer(read_only=True)
+    formulas = HeaderFormulaSerializer(source="headerformula_set")
     location = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = models.Header
-        fields = ('url', 'location', 'parameter', 'validations')
+        fields = ('url', 'location', 'parameter', 'validations', 'formulas')
 
 
 class ScadaLocationSerializer(serializers.HyperlinkedModelSerializer):

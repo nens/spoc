@@ -148,10 +148,10 @@ class Location(models.Model):
 class Field(models.Model):
     """The field for validation or formule."""
     VALIDATION = 'VALIDATION'
-    FORMULA = ''
+    FORMULA = 'FORMULA'
     TYPE_CHOICES = (
-        ('VALIDATION', 'Validation'),
-        ('FORMULA', 'Formula'),
+        (VALIDATION, 'Validation'),
+        (FORMULA, 'Formula'),
     )
     name = models.CharField(max_length=50)
     field_type = models.CharField(max_length=15, choices=TYPE_CHOICES)
@@ -186,7 +186,38 @@ class Validation(models.Model):
         def __unicode__(self):
             return self.field.field.name
 
+
+class HeaderFormula(models.Model):
+
+    TYPE1 = 1
+    TYPE2 = 2
+    TYPE3 = 3
+    TYPE4 = 4
+    TYPE5 = 5
+    TYPE6 = 6
+    TYPE_CHOICES = (
+        (TYPE1, 'type1'),
+        (TYPE2, 'type2'),
+        (TYPE3, 'type3'),
+        (TYPE4, 'type4'),
+        (TYPE5, 'type5'),
+        (TYPE6, 'type6'),
+    )
     
+    header = models.ForeignKey(Header)
+    dstart = models.DateField(null=True, blank=True)
+    dstop = models.DateField(null=True, blank=True)
+    formula_type = models.CharField(max_length=6, choices=TYPE_CHOICES)
+    coef1 = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    coef2 = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    coef3 = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    coef4 = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    coef5 = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    coef6 = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    coef7 = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    coef8 = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+
+
 class Gemal(models.Model):
     
     ID_INT = models.CharField(primary_key=True, unique=True, max_length=64)

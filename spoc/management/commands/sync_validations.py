@@ -8,8 +8,8 @@ from django.core.management.base import BaseCommand, CommandError
 from spoc import models
 
 class Command(BaseCommand):
-    help = '''Import or update parameters from csv-file where row
-    <parameterid>,<parametername>'''
+    help = '''Insert or update parameters, fields, validationfields, formulas
+    from csv-file.'''
     
     option_list = BaseCommand.option_list + (
         make_option('--f',
@@ -31,7 +31,23 @@ class Command(BaseCommand):
                     self.insert_fields(row)
                     count= count + 1
                 self.insert_validation_field(row)
+                self.insert_formula(row)
         self.stdout.write('Successfully passed.')
+
+    def insert_formula(self, row):
+        """Add a formula if it not exists."""
+        if row['Formule'] == '':
+            return
+        headers = models.Header.objects.filter(parameter__id=row['WNS-code'])
+        count = 0
+        print row['WNS-code'], row['Formule'], headers.count()
+        for header in headers:
+            if not header.headerformula_set.exists():
+                formula = models.HeaderFormula(header=header)
+                formula.save()
+                header.headerformula_set.add(formula)
+                count = count + 1
+        self.stdout.write("{} Formulas created.".format(count))
 
     def insert_validation_field(self, row):
         parameter = self.get_or_create_parameter(row['WNS-code'], row['WNS-naam'])

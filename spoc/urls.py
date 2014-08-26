@@ -30,6 +30,8 @@ urlpatterns = patterns(
         'header_detail', name='header-detail'),
     url(r'^validations/(?P<pk>[a-zA-Z0-9_.-]+)/$',
         'validation_detail', name='validation-detail'),
+    url(r'^headerformulas/(?P<pk>[a-zA-Z0-9_.-]+)/$',
+        'headerformula_detail', name='headerformula-detail'),
     
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # url(r'^something/',
