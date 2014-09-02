@@ -7,6 +7,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'HHNK1',
+        'USER': 'SPOC',
+        'PASSWORD': 'spoc123',
+        'HOST': '192.168.1.133',
+        'PORT': '1521',
+        },
+    'default_': {
         'NAME': 'spoc',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'buildout',
