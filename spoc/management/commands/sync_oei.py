@@ -39,7 +39,7 @@ class Command(BaseCommand):
                 oei_location.x = location.X
                 oei_location.y = location.Y
                 oei_location.save()
-                self.stdout.write('Update a new ksl "%s"' % location.KSLIDENT)
+                self.stdout.write('Update a ksl "%s"' % location.KSLIDENT)
             except OEILocation.DoesNotExist:
                 self.stdout.write('Insert a new ksl "%s"' % location.KSLIDENT)
                 
@@ -65,7 +65,7 @@ class Command(BaseCommand):
                 oei_location.x = location.X
                 oei_location.y = location.Y
                 oei_location.save()
-                self.stdout.write('Update a new kst "%s"' % location.KSTIDENT)
+                self.stdout.write('Update a kst "%s"' % location.KSTIDENT)
             except OEILocation.DoesNotExist:
                 self.stdout.write('Insert a new kst "%s"' % location.KSTIDENT)
                 
