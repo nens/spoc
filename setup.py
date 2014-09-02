@@ -23,6 +23,7 @@ install_requires = [
     'south',
     'markdown',
     'dbfpy',
+    'cherrypy',
     ],
 
 tests_require = [

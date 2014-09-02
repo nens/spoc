@@ -218,22 +218,83 @@ class HeaderFormula(models.Model):
     coef8 = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
 
 
-class Gemal(models.Model):
-    
+class FEWS_OEI_SLUIZEN(models.Model):
     ID_INT = models.CharField(primary_key=True, unique=True, max_length=64)
-    KWKNAAM = models.CharField(max_length=64)
-    GPGIDENT = models.CharField(max_length=64)
-    KWKIDENT = models.CharField(max_length=64)
-    KWKSOORT = models.CharField(max_length=64)
-    RICHTING = models.CharField(max_length=64)
+    KSLIDENT = models.CharField(max_length=24)
+    KSLNAAM = models.CharField(max_length=100, null=True, blank=True)
+    KSLSOORT = models.IntegerField(max_length=5, null=True, blank=True)
+    RICHTING = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
     X = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
     Y = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
-    GPGZMRPL = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
-    GPGWNTPL = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
-
+    GPGIN = models.CharField(max_length=24, null=True, blank=True)
+    GPGINZP = models.IntegerField(null=True, blank=True)
+    GPGINWP = models.IntegerField(null=True, blank=True)
+    GPGUIT = models.CharField(max_length=24, null=True, blank=True)
+    GPGUITZP = models.CharField(max_length=24)
+    GPGUITWP = models.IntegerField(null=True, blank=True)
+    KSLOMSCH = models.CharField(max_length=100, null=True, blank=True)
+    OPMERKING = models.CharField(max_length=254, null=True, blank=True)
+    KSLSTATU = models.IntegerField(max_length=5, null=True, blank=True)
+    KSLINLAT = models.IntegerField(max_length=5, null=True, blank=True)
+    KSLBOKBO = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    KSLBOKBE = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    KSLLENGT = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    KSLKOLBR = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    KSLKOLHG = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    KSLPASBR = models.IntegerField(max_length=5, null=True, blank=True)
+    KSLFUNPA = models.IntegerField(max_length=5, null=True, blank=True)
+    OBJDERDE = models.CharField(max_length=100, null=True, blank=True)
+    HYPERLINK = models.CharField(max_length=240, null=True, blank=True)
+    MEMO = models.TextField(max_length=500, null=True, blank=True)
+    METBRON = models.CharField(max_length=100, null=True, blank=True)
+    METINWWYZ = models.IntegerField(max_length=5, null=True, blank=True)
+    METINWDAT = models.DateTimeField(null=True, blank=True)
+    METOPMERK = models.CharField(max_length=254, null=True, blank=True)
+    
     class Meta:
         managed = False
-        db_table = 'oei'
+        db_table = 'FEWS_OEI_SLUIZEN'
 
-    def __unicode__(self):
-        return u'%s' % self.GPGIDENT
+
+class FEWS_OEI_STUWEN(models.Model):
+    ID_INT = models.CharField(primary_key=True, unique=True, max_length=64)
+    KSTIDENT = models.CharField(max_length=24)
+    KSTNAAM = models.CharField(max_length=100, null=True, blank=True)
+    KSTSOORT = models.IntegerField(max_length=5, null=True, blank=True)
+    RICHTING = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    X = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    Y = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    GPGBOS = models.CharField(max_length=24, null=True, blank=True)
+    GPGBOSZP = models.IntegerField(null=True, blank=True)
+    GPGBOSWP = models.IntegerField(null=True, blank=True)
+    GPGBES = models.CharField(max_length=24, null=True, blank=True)
+    GPGBESZP = models.IntegerField(null=True, blank=True)
+    GPGBESWP = models.IntegerField(null=True, blank=True)
+    KSTOMSCH = models.CharField(max_length=100, null=True, blank=True)
+    OPMERKING = models.CharField(max_length=254, null=True, blank=True)
+    KSTSTATU = models.IntegerField(max_length=5, null=True, blank=True)
+    KSTINLAT = models.IntegerField(max_length=5, null=True, blank=True)
+    KSTFUNCT = models.IntegerField(max_length=5, null=True, blank=True)
+    KSTAANT = models.IntegerField(max_length=5, null=True, blank=True)
+    KSTKRVRM = models.IntegerField(max_length=5, null=True, blank=True)
+    KSTREGEL = models.IntegerField(max_length=5, null=True, blank=True)
+    KSTMINKH = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    KSTMAXKH = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    KSTBREED = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    KSTHOOGT = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    KSTDSBRE = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=8)
+    KSTJAAR = models.IntegerField(max_length=4, null=True, blank=True)
+    KSTNAPH = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    KSTNAPD = models.DateTimeField(null=True, blank=True)
+    KSTPASBR = models.IntegerField(max_length=5, null=True, blank=True)
+    OBJDERDE = models.CharField(max_length=100, null=True, blank=True)
+    HYPERLINK = models.CharField(max_length=240, null=True, blank=True)
+    MEMO = models.TextField(max_length=500, null=True, blank=True)
+    METBRON = models.CharField(max_length=100, null=True, blank=True)
+    METINWWYZ = models.IntegerField(max_length=5, null=True, blank=True)
+    METINWDAT = models.DateTimeField(null=True, blank=True)
+    METOPMERK = models.CharField(max_length=254, null=True, blank=True)
+    
+    class Meta:
+        managed = False
+        db_table = 'FEWS_OEI_STUWEN'

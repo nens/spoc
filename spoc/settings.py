@@ -12,12 +12,12 @@ import tempfile
 
 # SETTINGS_DIR allows media paths and so to be relative to this settings file
 # instead of hardcoded to c:\only\on\my\computer.
-SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
+SETTINGS_DIR = os.path.dirname(os.path.realpath('__file__'))
 
 # BUILDOUT_DIR is for access to the "surrounding" buildout, for instance for
 # BUILDOUT_DIR/var/static files to give django-staticfiles a proper place
 # to place all collected static files.
-BUILDOUT_DIR = os.path.abspath(os.path.join(SETTINGS_DIR, '..'))
+BUILDOUT_DIR = os.path.abspath(os.path.join(SETTINGS_DIR))
 
 # Set up logging. No console logging. By default, var/log/django.log and
 LOGGING = {
@@ -145,9 +145,8 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 CACHES = {
     'default': {
-        'KEY_PREFIX': BUILDOUT_DIR,
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'default'
     }
 }
 

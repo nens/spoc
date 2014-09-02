@@ -67,6 +67,47 @@ Start the server::
     $ bin/django runserver
 
 
+Windows
+---------
+* Check out the ``windows`` subdirectory, and customize it if needed.
+* Check out the ``objectenbeheer/cherrypy_service`` subdirectory, and customize it if needed.
+* Check out the ``objectenbeheer/settings/windows.py`` module, and customize it if needed.
+
+* Run ``build_windows.sh`` from Linux to wrap everything in a nice zip.
+
+* In Windows, download Python 2.7.x from http://www.python.org/download/.
+* In Windows, download Psycopg2 from http://www.stickpeople.com/projects/python/win-psycopg/.
+* In Windows, download PyWin32 from http://sourceforge.net/projects/pywin32/files/pywin32/.
+
+* Extract the zip in the configured place, e.g. ``D:\Programs\objectenbeheer``.
+
+* In Windows, configure your ``PYTHONPATH`` environment variable to point to the absolute path of the ``objectenbeheer\lib`` subdirectory.
+  If you don't know how to do this, read https://kb.wisc.edu/cae/page.php?id=24500.
+
+* To tune local settings like the database connection, create or edit ``objectenbeheer\lib\objectenbeheer\settings\local.py``.
+
+* Collect static files: go to the install directory, and run ``collectstatic.cmd``.
+
+* Do the usual Django syncdb + migrate stuff: go to the install directory, and run ``django.cmd syncdb`` and ``django.cmd migrate``.
+
+* Want to install it as a service? Open an Administrator command prompt, go to the install directory, and use ``servicecontrol.cmd (install|remove|start|stop)``.
+
+* Point your browser to http://127.0.0.1:8090.
+
+
+Oracle (Windows)
+-----------------
+
+Download and extract http://www.oracle.com/technetwork/topics/winsoft-085727.html:
+* instantclient-basic-nt-12.1.0.1.0.zip
+* instantclient-sqlplus-nt-12.1.0.1.0.zip
+
+Set environment variables:
+ORACLE_HOME = ..\instantclient-sqlplus-nt-12.1.0.1.0\instantclient_12_1
+LD_LIBRARY_PATH = ..\instantclient-basic-nt-12.1.0.1.0\instantclient_12_1
+PATH = %PATH%;%ORACLE_HOME%;%LD_LABRARY_PATH%;
+
+
 CORS settings
 -------------------------------------
 In case of the intraction between different domains set for production
@@ -95,7 +136,7 @@ Usage
 
 5. Combine the oei-locations with scada-locations
 
-   $ bin/django mearge_locations
+   $ bin/django merge_locations
 
 6. Create configuration file
 
