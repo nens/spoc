@@ -35,13 +35,16 @@ class Command(BaseCommand):
         return location
             
     def get_or_create_header(self, location, parameterid):
+        header = None
         try:
             header = Header.objects.get(
                 location=location, parameter__id=parameterid)
         except Header.DoesNotExist:
-            header = Header(location=location,
-                            parameter=self.get_parameter(parameterid))
-            header.save()
+            parameter = self.get_parameter(parameterid)
+            if parameter is not None:
+                header = Header(location=location,
+                                parameter=self.get_parameter(parameterid))
+                header.save()
         return header
 
     def import_pixml_source(self, source):
@@ -55,8 +58,11 @@ class Command(BaseCommand):
                     locationid = s.header.locationId
                     locationname = s.header.stationName
                     parameterid = s.header.parameterId
-                    location = self.get_or_create_scadalocation(locationid, locationname, source)
+                    location = self.get_or_create_scadalocation(
+                        locationid, locationname, source)
                     header = self.get_or_create_header(location, parameterid)
+                    if header is None:
+                        continue
                     header.locationname = locationname
                     header.save()
 

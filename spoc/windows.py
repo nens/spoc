@@ -5,6 +5,8 @@ ENVIRONMENT = 'production'
 DEBUG = True
 CORS_ORIGIN_ALLOW_ALL = True
 
+SECRET_KEY = 'liu%(qb17(uvqc7f44i=_^e0bbv^gq11s0q5agzwrxv=c0ufd6'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
