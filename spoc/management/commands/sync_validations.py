@@ -68,8 +68,11 @@ class Command(BaseCommand):
             try:
                 models.Field.objects.get(name=header, field_type=models.Field.VALIDATION)
             except models.Field.DoesNotExist:
+                prefix = self.get_unused_prefix()
+                if prefix is None:
+                    raise Exception("Error on insert a field: No field prefix available.")
                 models.Field(
-                    name=header, field_type=models.Field.VALIDATION).save()
+                    name=header, field_type=models.Field.VALIDATION, prefix=prefix).save()
                 self.stdout.write('Field created')
                 
     def get_or_create_parameter(self, code, name):
@@ -82,3 +85,15 @@ class Command(BaseCommand):
             parameter.save()
             self.stdout.write("Parameter created")
         return parameter
+
+    def get_unused_prefix(self):
+        validation_fields = models.Field.objects.filter(
+            field_type=models.Field.VALIDATION)
+        used_prefixes = validation_fields.values_list('prefix', flat=True)
+        unused_prefixes = [i for i in models.Field.PREFIXES if i not in used_prefixes]
+        
+        if len(unused_prefixes) > 0:
+            return unused_prefixes[0]
+        else:
+            return None
+               

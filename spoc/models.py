@@ -3,9 +3,11 @@
 from __future__ import unicode_literals
 from __future__ import print_function
 
+import jsonfield
+import string
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-import jsonfield
 
 # Create your models here.
 
@@ -91,7 +93,7 @@ class Header(models.Model):
     location = models.ForeignKey(ScadaLocation, related_name='headers')
     parameter = models.ForeignKey(Parameter, null=True, blank=True)
     unit = models.CharField(max_length=30, null=True, blank=True)
-    value = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
+    #value = models.DecimalField(null=True, blank=True, decimal_places=3, max_digits=9)
     begintime = models.DateTimeField(null=True, blank=True)
     endtime = models.DateTimeField(null=True, blank=True)
 
@@ -146,18 +148,27 @@ class Location(models.Model):
 
 
 class Field(models.Model):
-    """The field for validation or formule."""
+    """
+    The field for validation or formule.
+    Use prefix to map with parameter for fews configuration.
+    """
     VALIDATION = 'VALIDATION'
     FORMULA = 'FORMULA'
+    PREFIXES = string.uppercase
+    PREFIX_CHOICES = tuple((l, l) for l in PREFIXES)
     TYPE_CHOICES = (
         (VALIDATION, 'Validation'),
         (FORMULA, 'Formula'),
     )
     name = models.CharField(max_length=50)
     field_type = models.CharField(max_length=15, choices=TYPE_CHOICES)
+    prefix = models.CharField(max_length=1, choices=PREFIX_CHOICES)
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        unique_together = (('field_type', 'prefix'),)
 
 
 class ValidationField(models.Model):
