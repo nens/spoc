@@ -54,7 +54,7 @@ def store_headers(out, location, headers):
         rec['X'] = x if x is not None else 0
         rec['Y'] = y if y is not None else 0
         rec['GPGIN'] = str(gpgin) if gpgin is not None else ''
-        rec['GPGINZP'] = str(gpginzp) if gpginz is not None else ''
+        rec['GPGINZP'] = str(gpginzp) if gpginzp is not None else ''
         rec['GPGINWP'] = str(gpginwp) if gpginwp is not None else ''
         rec['GPGUIT'] = str(gpguit) if gpguit is not None else ''
         rec['GPGUITZP'] = str(gpguitzp) if gpguitzp is not None else ''

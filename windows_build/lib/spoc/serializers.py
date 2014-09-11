@@ -17,7 +17,8 @@ class OEILocationSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = models.OEILocation
-        fields = ('url', 'locationid', 'locationname', 'sort', 'gpgzmrpl', 'gpgwntpl')
+        fields = ('url', 'locationid', 'locationname', 'sort',
+                  'gpgin', 'gpginzp', 'gpginwp', 'gpguit', 'gpguitzp', 'gpguitwp' )
 
 
 class SourceSerializer(serializers.HyperlinkedModelSerializer):
@@ -47,11 +48,15 @@ class HeaderFormulaSerializer(serializers.HyperlinkedModelSerializer):
     header = serializers.PrimaryKeyRelatedField(read_only=True)
     dstop = serializers.DateField(required=False)
     dstart = serializers.DateField(required=False)
+    formula_type = serializers.PrimaryKeyRelatedField(required=False, source='formula_type')
+    #formula_type = serializers.CharField(required=False)
 
     class Meta:
         model = models.HeaderFormula
-        fields = ('url', 'header', 'dstart', 'dstop', 'coef1','coef2',
-                  'coef3', 'coef4', 'coef5', 'coef6', 'coef7', 'coef8')
+        fields = ('url', 'header', 'dstart', 'dstop', 'formula_type', 
+                  'coef01','coef02', 'coef03', 'coef04', 'coef05',
+                  'coef06', 'coef07', 'coef08', 'coef09', 'coef10',
+                  'coef11', 'coef12')
 
 
 class HeaderSerializer(serializers.HyperlinkedModelSerializer):
@@ -85,10 +90,17 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Location
-        fields = ('url', 'fews', 'forward', 'visible', 'created', 'oei_location', 'scada_location')
+        fields = ('id', 'url', 'fews', 'forward', 'visible', 'created', 'oei_location', 'scada_location')
 
 
 class PaginatedLocationSerializer(pagination.PaginationSerializer):
 
     class Meta:
         object_serializer_class = LocationSerializer
+
+
+class FormulaTypeSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = models.FormulaType
+        fields = ('code',)

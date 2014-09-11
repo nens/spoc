@@ -19,7 +19,7 @@ DATABASES = {
     # solution. Jenkins can only run the tests of the current application when
     # the specified database exists. When the tests cannot run, Jenkins sees
     # that as an error.
-    'default_': {
+    'default': {
         'NAME': os.path.join(BUILDOUT_DIR, 'var', 'sqlite', 'test.db'),
         'ENGINE': 'django.db.backends.sqlite3',
         # If you want to use postgres, use the two lines below.
@@ -38,7 +38,7 @@ DATABASES = {
         'HOST': 'vmhost',
         'PORT': '5432',
         },
-    'default': {
+    'ws_lezen': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': 'HHNK1',
         'USER': 'SPOC',
@@ -46,6 +46,7 @@ DATABASES = {
         'HOST': '192.168.1.133',
         'PORT': '1521',
         },
+    
     }
 
 
