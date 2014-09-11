@@ -205,6 +205,7 @@ SENTRY_DSN = 'http://some:thing@sentry.lizardsystem.nl/1'
 # TODO: add gauges ID here. Generate one separately for the staging, too.
 UI_GAUGES_SITE_ID = ''  # Staging has a separate one.
 CORS_ORIGIN_ALLOW_ALL = False
+APPEND_SLASH=True
 
 DBF_DIR = '/tmp'
 

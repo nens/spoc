@@ -68,8 +68,25 @@ def get_filtered_locationset(queryset, request):
 @api_view(('GET',))
 def api_root(request, format=None):
     return Response({
-        'locations': reverse('location-list', request=request, format=format)
+        'locations': reverse('location-list', request=request, format=format),
+        'formulatypes': reverse('formulatypes-list', request=request, format=format)
     })
+
+
+@api_view(['GET'])
+def formulatypes_list(request):
+    """
+    List formula types.
+    """
+
+    if request.method == 'GET':
+
+        formula_types = models.FormulaType.objects.all()
+
+        serializer = serializers.FormulaTypeSerializer(
+            formula_types, context={'request': request})
+        return Response(serializer.data)
+
 
 
 @api_view(['GET'])

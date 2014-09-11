@@ -77,6 +77,8 @@ class Command(BaseCommand):
                 parameterid = reader.next()[1]
                 location = self.get_or_create_scadalocation(locationid, locationname, source)
                 header = self.get_or_create_header(location, parameterid)
+                if header is None:
+                    continue
                 header.locationname = locationname
                 header.save()
                 

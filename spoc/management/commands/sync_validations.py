@@ -27,7 +27,7 @@ class Command(BaseCommand):
             reader = csv.DictReader(f,skipinitialspace=True, delimiter=';')
             count = 0
             for row in reader:
-                if row['WNS-code'] is None:
+                if row['WNS-code'] in [None, '']:
                     continue
                 if count == 0:
                     self.insert_fields(row)
