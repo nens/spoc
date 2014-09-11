@@ -38,7 +38,7 @@ DATABASES = {
         'HOST': 'vmhost',
         'PORT': '5432',
         },
-    'default_': {
+    'ws_lezen': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': 'HHNK1',
         'USER': 'SPOC',

@@ -7,6 +7,7 @@ class Command(BaseCommand):
   
     def handle(self, *args, **options):
         self.stdout.write('Start creating configuration.dbf.')
-        #config_to_dbf.create_dbf()
+        config_to_dbf.create_dbf()
         self.stdout.write('Start creating debietberekening.dbf.')
         debiet_to_dbf.create_dbf()
+        self.stdout.write('The END.')

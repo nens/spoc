@@ -30,7 +30,7 @@ class Command(BaseCommand):
         #self.sync_meetpunten()
 
     def sync_sluizen(self):
-        locations = FEWS_OEI_SLUIZEN.objects.using('default_').all()
+        locations = FEWS_OEI_SLUIZEN.objects.using('ws_lezen').all()
         for location in locations:
             try:
                 #import pdb; pdb.set_trace()
@@ -77,7 +77,7 @@ class Command(BaseCommand):
                 ).save()
     
     def sync_stuwen(self):
-        locations = FEWS_OEI_STUWEN.objects.using('default_').all()
+        locations = FEWS_OEI_STUWEN.objects.using('ws_lezen').all()
         for location in locations:
             try:
                 oei_location = OEILocation.objects.get(locationid=location.KSTIDENT)
@@ -118,7 +118,7 @@ class Command(BaseCommand):
         self.stdout.write('Successfully passed.')
 
     def sync_gemalen(self):
-        locations = FEWS_OEI_GEMALEN.objects.using('default_').all()
+        locations = FEWS_OEI_GEMALEN.objects.using('ws_lezen').all()
         for location in locations:
             try:
                 oei_location = OEILocation.objects.get(locationid=location.KSLIDENT)
@@ -167,7 +167,7 @@ class Command(BaseCommand):
         locations = FEWS_OEI_MEETPUNTEN.objects.all()
         for location in locations:
             try:
-                oei_location = OEILocation.objects.using('default_').get(locationid=location.MPNIDENT)
+                oei_location = OEILocation.objects.using('ws_lezen').get(locationid=location.MPNIDENT)
                 oei_location.locationname = location.MPNNAAM
                 oei_location.sort = self.get_location_sort(location.MPNSOORT)
                 oei_location.objectid = location.ID_INT
