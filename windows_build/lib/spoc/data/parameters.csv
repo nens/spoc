@@ -1,0 +1,89 @@
+WNSHDB1,waterstand instroom
+WNSHDB2,inslagpeil pomp1
+WNSHDB3,waterstand uitstroom
+WNSHDB4,controle waterstand instroom
+WNSHDB5,bedrijf pomp1
+WNSHDB6,bedrijf pomp2
+WNSHDB7,bedrijf pomp3
+WNSHDB8,bedrijf pomp4
+WNSHDB9,dagdebiet pomp1
+WNSHDB10,klephoogte stuw1
+WNSHDB11,klephoogte stuw2
+WNSHDB12,klephoogte stuw3
+WNSHDB13,controle waterstand uitstroom
+WNSHDB14,dagdebiet pomp2
+WNSHDB15,kWh laag
+WNSHDB16,controle waterstand divers
+WNSHDB17,kWh hoog
+WNSHDB18,debiet sluis
+WNSHDB19,dagdebiet pomp3
+WNSHDB20,dagdebiet stuw1
+WNSHDB21,dagdebiet stuw2
+WNSHDB22,uitslagpeil pomp1
+WNSHDB23,uitslagpeil pomp2
+WNSHDB24,opmerking waterstand instroom
+WNSHDB25,dagdebiet pomp4
+WNSHDB26,zout (mg/l)
+WNSHDB27,geleidendheid
+WNSHDB28,neerslag riolering
+WNSHDB29,uitslagpeil pomp3
+WNSHDB30,uitslagpeil pomp4
+WNSHDB31,niveau riolering extern
+WNSHDB32,niveau riolering intern
+WNSHDB33,reden peilwijziging instroom
+WNSHDB34,operationeel peil instroom
+WNSHDB35,waterstand ongecompenseerd
+WNSHDB36,zuurstof
+WNSHDB37,debiet pomp1
+WNSHDB38,waterstand peilschaal
+WNSHDB39,zoutvracht
+WNSHDB40,waterstand gecompenseerd
+WNSHDB41,dagdebiet sluis
+WNSHDB42,doorstroomhoogte
+WNSHDB43,neerslag KNMI
+WNSHDB44,verdamping
+WNSHDB45,debiet pomp2
+WNSHDB46,debiet pomp3
+WNSHDB47,debiet stuw1
+WNSHDB48,debiet stuw2
+WNSHDB49,debiet pomp4
+WNSHDB50,debiet stuw3
+WNSHDB51,neerslag
+WNSHDB52,watertemperatuur
+WNSHDB53,luchtdruk
+WNSHDB54,luchttemperatuur
+WNSHDB55,frequentie pomp1
+WNSHDB56,frequentie pomp2
+WNSHDB57,frequentie pomp3
+WNSHDB58,frequentie pomp4
+WNSHDB59,operationeel peil uitstroom
+WNSHDB60,reden peilwijziging uitstroom
+WNSHDB62,doorstroomopening inlaatklep
+WNSHDB63,openingspercentage inlaatklep
+WNSHDB64,klephoogte stuw4
+WNSHDB65,inslagpeil pomp2
+WNSHDB66,inslagpeil pomp3
+WNSHDB67,inslagpeil pomp4
+WNSHDB68,debiet pomp1 gevalideerd (mom)
+WNSHDB69,debiet pomp2 gevalideerd (mom)
+WNSHDB70,debiet pomp3 gevalideerd (mom)
+WNSHDB71,debiet pomp4 gevalideerd (mom)
+WNSHDB72,debiet stuw1 gevalideerd (mom)
+WNSHDB73,debiet stuw2 gevalideerd (mom)
+WNSHDB74,debiet sluis gevalideerd (mom)
+WNSHDB75,draaiuren krooshekreiniger
+WNSHDB76,draaiuren vacuumpomp
+WNSHDB77,operationele geleidendheidswaarde
+WNSHDB78,zomerpeil
+WNSHDB79,winterpeil
+WNSHDB80,stroomwaarde pomp 1
+WNSHDB81,stroomwaarde pomp 2
+WNSHDB82,stroomwaarde pomp 3
+WNSHDB83,stroomwaarde pomp 4
+WNSHDB84,debiet pomp1 gevalideerd (cum)
+WNSHDB85,debiet pomp2 gevalideerd (cum)
+WNSHDB86,debiet pomp3 gevalideerd (cum)
+WNSHDB87,debiet pomp4 gevalideerd (cum)
+WNSHDB88,debiet stuw1 gevalideerd (cum)
+WNSHDB89,debiet stuw2 gevalideerd (cum)
+WNSHDB90,debiet sluis gevalideerd (cum)

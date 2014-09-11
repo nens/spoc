@@ -138,7 +138,11 @@ Usage
 
    $ bin/django merge_locations
 
-6. Create configuration file
+6. Insert formula types and ... 
+
+   $ bin/django create_initial_data
+
+7. Create configuration file. Exports location and formulas where fews=true.
 
    $ bin/django export_to_dbf
 
