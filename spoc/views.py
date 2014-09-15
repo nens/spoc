@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from __future__ import print_function
 
 from django.utils.translation import ugettext as _
+from django.http import HttpResponseRedirect
 
 from rest_framework.views import APIView
 from rest_framework import viewsets
@@ -69,7 +70,8 @@ def get_filtered_locationset(queryset, request):
 def api_root(request, format=None):
     return Response({
         'locations': reverse('location-list', request=request, format=format),
-        'formulatypes': reverse('formulatypes-list', request=request, format=format)
+        'formulatypes': reverse('formulatypes-list', request=request, format=format),
+        'headerformulas': reverse('headerformula-list', request=request, format=format)
     })
 
 
@@ -86,6 +88,8 @@ def formulatypes_list(request):
         serializer = serializers.FormulaTypeSerializer(
             formula_types, context={'request': request})
         return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 
@@ -120,9 +124,11 @@ def location_list(request):
         serializer = serializers.PaginatedLocationSerializer(
             locations, context={'request': request})
         return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT'])
 def location_detail(request, pk):
     """
     Retrieve a location from LocatonHeader table.
@@ -136,12 +142,14 @@ def location_detail(request, pk):
         serializer = serializers.LocationSerializer(
             location, context={'request': request})
         return Response(serializer.data)
-    elif request.method == 'POST':
+    elif request.method == 'PUT':
         serializer = serializers.LocationSerializer(location, data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @api_view(['GET'])
@@ -174,9 +182,11 @@ def scadalocation_detail(request, pk):
         serializer = serializers.ScadaLocationSerializer(
             location, context={'request': request})
         return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT'])
 def header_detail(request, pk):
     """
     Retrieve a header details from Header table.
@@ -189,15 +199,17 @@ def header_detail(request, pk):
         serializer = serializers.HeaderSerializer(
             header, context={'request': request})
         return Response(serializer.data)
-    elif request.method == 'POST':
+    elif request.method == 'PUT':
         serializer = serializers.HeaderSerializer(header, request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT'])
 def validation_detail(request, pk):
     """
     Retrieve a validation details from Header table.
@@ -211,32 +223,49 @@ def validation_detail(request, pk):
         serializer = serializers.ValidationSerializer(
             validation, context={'request': request})
         return Response(serializer.data)
-    elif request.method == 'POST':
+    elif request.method == 'PUT':
         serializer = serializers.ValidationSerializer(validation, request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
+@api_view(['POST'])
+def headerformula_list(request):
+    
+    if request.method == 'POST':
+        formula = models.HeaderFormula()
+        serializer = serializers.HeaderFormulaSerializer(formula, request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return HttpResponseRedirect( reverse('headerformula-detail', args=[formula.id]))
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-@api_view(['GET', 'POST'])
+
+@api_view(['GET', 'PUT', 'POST'])
 def headerformula_detail(request, pk):
     """
     Retrieve a formula details from HeaderFormul table.
     """
     try:
         formula = models.HeaderFormula.objects.get(pk=pk)
+
+        if request.method == 'GET':
+            serializer = serializers.HeaderFormulaSerializer(
+                formula, context={'request': request})
+            return Response(serializer.data)
+        elif request.method == 'PUT':
+            serializer = serializers.HeaderFormulaSerializer(formula, request.DATA)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
     except models.HeaderFormula.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = serializers.HeaderFormulaSerializer(
-            formula, context={'request': request})
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        serializer = serializers.HeaderFormulaSerializer(formula, request.DATA)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
