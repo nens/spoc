@@ -32,7 +32,7 @@ class ParameterSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Parameter
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'formula_allowed')
 
 
 class ValidationSerializer(serializers.HyperlinkedModelSerializer):
@@ -45,7 +45,7 @@ class ValidationSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class HeaderFormulaSerializer(serializers.HyperlinkedModelSerializer):
-    header = serializers.PrimaryKeyRelatedField(read_only=True)
+    header = serializers.PrimaryKeyRelatedField()
     dstop = serializers.DateField(required=False)
     dstart = serializers.DateField(required=False)
     formula_type = serializers.PrimaryKeyRelatedField(required=False, source='formula_type')

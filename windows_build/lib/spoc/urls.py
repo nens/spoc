@@ -30,6 +30,8 @@ urlpatterns = patterns(
         'header_detail', name='header-detail'),
     url(r'^validations/(?P<pk>[a-zA-Z0-9_.-]+)/$',
         'validation_detail', name='validation-detail'),
+    url(r'^headerformulas/$',
+        'headerformula_list', name='headerformula-list'),
     url(r'^headerformulas/(?P<pk>[a-zA-Z0-9_.-]+)/$',
         'headerformula_detail', name='headerformula-detail'),
     url(r'^formulatypes/$', 'formulatypes_list', name='formulatypes-list'),

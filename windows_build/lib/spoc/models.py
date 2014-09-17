@@ -53,6 +53,7 @@ class OEILocation(models.Model):
 class Parameter(models.Model):
     id = models.CharField(primary_key=True, max_length=255)
     name = models.CharField(max_length=255, null=True, blank=True)
+    formula_allowed = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['id']
@@ -353,7 +354,7 @@ class FEWS_OEI_GEMALEN(models.Model):
     KGMNAPD = models.DateTimeField(null=True, blank=True)
     KGMPASBR = models.IntegerField(max_length=5, null=True, blank=True)
     KGMFUNPA = models.IntegerField(max_length=5, null=True, blank=True)
-    OBJDERDE = models.CharField(max_length=100, null=True, blank=True)
+    OBJDERDEN = models.CharField(max_length=100, null=True, blank=True)
     HYPERLINK = models.CharField(max_length=240, null=True, blank=True)
     MEMO = models.TextField(max_length=500, null=True, blank=True)
     METBRON = models.CharField(max_length=100, null=True, blank=True)

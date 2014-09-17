@@ -17,4 +17,13 @@ class Command(BaseCommand):
                 self.stdout.write('Formula type "{}" EXISTS'.format(t))
             else:
                 self.stdout.write('Created formula type {}.'.format(t))
+
+    def insert_scada_sources(self):
+        self.stdout.write('Start creating scada sources.')
+        csv1 = models.Source(name='Aquaview', directory='E:\Data_LCM\Aquaview',
+                            source_type=models.Source.SCADA_CSV).save()
+        csv2 = models.Source(name='ADH', directory='E:\Data_LCM\ADH',
+                            source_type=models.Source.SCADA_CSV).save()
+        pixml = models.Source(name='CAW', directory='E:\Data_LCM\CAW',
+                              source_type=models.Source.SCADA_PIXML).save()
                 
