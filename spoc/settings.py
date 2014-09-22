@@ -209,6 +209,8 @@ APPEND_SLASH=True
 
 DBF_DIR = '/tmp'
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+
 try:
     from spoc.localproductionsettings import *
     # For local production overrides (DB passwords, for instance)
