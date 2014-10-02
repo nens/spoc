@@ -58,7 +58,6 @@ def store_headers(out, location, headers):
     rec['GPGUIT'] = str(gpguit) if gpguit is not None else ''
     rec['GPGUITZP'] = str(gpguitzp) if gpguitzp is not None else ''
     rec['GPGUITWP'] = str(gpguitwp) if gpguitwp is not None else ''
-    rec['DEBITF'] = str(debitf) if debitf is not None else ''
     rec['STATUS'] = str(status) if status is not None else ''
     rec['DATUM_BG'] = str(datumbg) if datumbg is not None else ''
     rec['REGEL_BH'] = str(regelbg) if regelbg is not None else ''
@@ -77,6 +76,12 @@ def store_headers(out, location, headers):
         for validation in validations:
             key = "{0}{1}".format(validation.field.field.prefix, parameter.id.upper())
             rec[key] = validation.value
+            
+        formulas_filters = {"header__location": location.scada_location, "dstop__isnull": True}
+        formulas = models.HeaderFormula.objects.filter(**formulas_filters)
+        if formulas.exists():
+            debitf = str(formulas[0].formula_type.code)
+            rec['DEBITF'] = debitf if debitf is not None else ''
 
     rec.store()
 
