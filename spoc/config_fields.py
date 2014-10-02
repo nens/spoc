@@ -22,7 +22,7 @@ def dbf_configuration():
         ('GPGUIT','C',10),
         ('GPGUITZP','C',5),
         ('GPGUITWP','C',5),
-        ('DEBITF','C',5),
+        ('DEBITF','C',25),
         ('STATUS','C',25),
         ('DATUM_BG','C',25),
         ('REGEL_BH','C',30),
