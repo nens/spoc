@@ -66,9 +66,11 @@ class Source(models.Model):
     """Scada. """
     SCADA_CSV = 'CSV'
     SCADA_PIXML = 'PIXML'
+    SCADA_MON = 'MON'
     SOURCE_CHOICES = (
         (SCADA_CSV, 'Scada csv'),
-        (SCADA_PIXML, 'Scade pixml'),
+        (SCADA_PIXML, 'Scada pixml'),
+        (SCADA_MON, 'Scada mon')
     )
     name = models.CharField(primary_key=True, max_length=255)
     directory = models.CharField(max_length=255, null=True, blank=True)

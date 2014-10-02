@@ -7,6 +7,8 @@ from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
 from spoc.models import ScadaLocation, Header, Source, Parameter
+from spoc.import_mon import ExtractLocationParameterFromMonDir
+
 
 class Command(BaseCommand):
     help = '''Import location, headers from scada. Actions on import: update, create.'''
@@ -20,14 +22,14 @@ class Command(BaseCommand):
     def get_parameter(self, parameterid):
         parameter = None
         try:
-            parameter = Parameter.objects.get(id=parameterid)
+            parameter = Parameter.objects.get(id__iexact=parameterid)
         except Parameter.DoesNotExist:
             self.stdout.write("Parameter {} does not exist.".format(parameterid))
         return parameter
 
     def get_or_create_scadalocation(self, id, name, source):
         try:
-            location = ScadaLocation.objects.get(locationid=id)
+            location = ScadaLocation.objects.get(locationid__iexact=id)
         except ScadaLocation.DoesNotExist:
             location = ScadaLocation(
                 locationid=id, locationname=name, source=source)
@@ -38,13 +40,12 @@ class Command(BaseCommand):
         header = None
         try:
             header = Header.objects.get(
-                location=location, parameter__id=parameterid)
+                location=location, parameter__id__iexact=parameterid)
         except Header.DoesNotExist:
             parameter = self.get_parameter(parameterid)
             if parameter is not None:
                 header = Header(location=location,
                                 parameter=self.get_parameter(parameterid))
-                header.save()
         return header
 
     def import_pixml_source(self, source):
@@ -81,6 +82,22 @@ class Command(BaseCommand):
                     continue
                 header.locationname = locationname
                 header.save()
+
+    
+    def import_mon_source(self, source):
+        extractor = ExtractLocationParameterFromMonDir()
+        result_dir = extractor.__call__(source.directory)
+        for k, v in result_dir.iteritems():
+            locationname = ''
+            locationid = k[0]
+            parameterid = k[1]
+            location = self.get_or_create_scadalocation(locationid, locationname, source)
+            header = self.get_or_create_header(location, parameterid)
+            if header is None:
+                continue
+            header.locationname = locationname
+            header.save()
+
                 
     def handle(self, *args, **options):
         scadas = options.get('scada', None)
@@ -102,9 +119,11 @@ class Command(BaseCommand):
                     "Source directory {} does not exist.".format(source.directory))
                 continue
 
-            if source.source_type == 'CSV':
+            if source.source_type == Source.SCADA_CSV:
                 self.import_scv_source(source)
-            elif source.source_type == 'PIXML':
+            elif source.source_type == Source.SCADA_PIXML:
                 self.import_pixml_source(source)
+            elif source.source_type == Source.SCADA_MON:
+                self.import_mon_source(source)
 
             self.stdout.write('Successfully passed scade "%s"' % source.name)
