@@ -146,9 +146,13 @@ Usage
 
    $ bin/django export_to_dbf
 
-7. Insert parameters, fields, validation fields, headerformulas
+8. Insert parameters, fields, validation fields, headerformulas
    
    $ bin/django sync_validations --f=/{buildout_dir}/spoc/data/validations.csv
+
+9. Bind validations with headers
+   
+   $ bin/django create_validations
 
 
 REST

@@ -121,7 +121,7 @@ class Header(models.Model):
 
     @property
     def validations(self):
-        self.add_validations()
+        //self.add_validations()
         return self.validation_set.all()
 
     def add_validations(self):

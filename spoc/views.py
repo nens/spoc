@@ -246,7 +246,7 @@ def headerformula_list(request):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-@api_view(['GET', 'PUT', 'POST'])
+@api_view(['GET', 'PUT'])
 def headerformula_detail(request, pk):
     """
     Retrieve a formula details from HeaderFormul table.
