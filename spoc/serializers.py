@@ -25,7 +25,7 @@ class SourceSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Source
-        fields = ('source_type',)
+        fields = ('name',)
 
 
 class DiverSerializer(serializers.HyperlinkedModelSerializer):

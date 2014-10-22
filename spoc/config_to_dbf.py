@@ -33,13 +33,13 @@ def store_headers(out, location, headers):
     gpguitzp = location.oei_location.gpguitzp
     gpguitwp = location.oei_location.gpguitwp
     status = location.oei_location.status
-    debitf = location.oei_location.debitf
     datumbg = location.oei_location.datumbg
     regelbg = location.oei_location.regelbg
     inlaatf = location.oei_location.inlaatf
     x = location.oei_location.x
     y = location.oei_location.y
-
+    ref_h = ""
+    baro = ""
     # if None in [bron, id, naam, gpgin]:
     #     logger.warn(
     #         "Escape header due None value by LOCATION - '{}'".format(id))
@@ -62,14 +62,13 @@ def store_headers(out, location, headers):
     rec['DATUM_BG'] = str(datumbg) if datumbg is not None else ''
     rec['REGEL_BH'] = str(regelbg) if regelbg is not None else ''
     rec['INLAAT_F'] = str(inlaatf) if inlaatf is not None else ''
-    rec['REF_H'] = ''
-    rec['BARO'] = ''
+    
 
     for header in headers:
         parameter = header.parameter
         if parameter is None:
             continue
-        
+
         rec[str(parameter.id.upper())] = parameter.id
 
         validations = header.validation_set.all()
@@ -82,7 +81,14 @@ def store_headers(out, location, headers):
         if formulas.exists():
             debitf = str(formulas[0].formula_type.code)
             rec['DEBITF'] = debitf if debitf is not None else ''
+        divers = header.diver_set.filter(dstop__isnull=True)
+        if divers.exists():
+            ref_h = divers[len(divers)-1]
+            baro = divers[len(divers)-1]
 
+    rec['REF_H'] = str(ref_h) if ref_h is not None else ''
+    rec['BARO'] = str(baro) if baro is not None else ''
+    print (type(ref_h), type(baro))
     rec.store()
 
 
