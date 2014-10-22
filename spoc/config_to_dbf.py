@@ -88,7 +88,6 @@ def store_headers(out, location, headers):
 
     rec['REF_H'] = str(ref_h) if ref_h is not None else ''
     rec['BARO'] = str(baro) if baro is not None else ''
-    print (type(ref_h), type(baro))
     rec.store()
 
 
