@@ -25,7 +25,7 @@ def dbf_configuration():
         ('DEBITF','C',25),
         ('STATUS','C',25),
         ('DATUM_BG','C',25),
-        ('REGEL_BH','C',30),
+        ('REGEL_BH','C',40),
         ('INLAAT_F','C',30),
         ('REF_H','C',20),
         ('BARO','C',20),
