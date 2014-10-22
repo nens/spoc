@@ -28,8 +28,24 @@ class SourceSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('source_type',)
 
 
-class ParameterSerializer(serializers.HyperlinkedModelSerializer):
+class DiverSerializer(serializers.HyperlinkedModelSerializer):
+    header = serializers.PrimaryKeyRelatedField()
+    dstop = serializers.DateField(required=False)
+    dstart = serializers.DateField(required=False)
+    ref_h = serializers.FloatField(required=False)
+    baro = serializers.CharField(required=False)
 
+    class Meta:
+        model = models.Diver
+        fields = ('url', 'dstart', 'dstop', 'ref_h', 'baro', 'header')
+
+class DiverDetailsSerializer(DiverSerializer):
+
+    header = serializers.PrimaryKeyRelatedField(write_only=True, required=False)
+
+
+class ParameterSerializer(serializers.HyperlinkedModelSerializer):
+    
     class Meta:
         model = models.Parameter
         fields = ('id', 'name', 'formula_allowed')
@@ -65,10 +81,11 @@ class HeaderSerializer(serializers.HyperlinkedModelSerializer):
     validations = ValidationSerializer(read_only=True)
     formulas = HeaderFormulaSerializer(source="headerformula_set")
     location = serializers.PrimaryKeyRelatedField(read_only=True)
+    divers = DiverSerializer(source="diver_set")
 
     class Meta:
         model = models.Header
-        fields = ('url', 'location', 'parameter', 'validations', 'formulas')
+        fields = ('url', 'location', 'parameter', 'validations', 'formulas', 'divers')
 
 
 class ScadaLocationSerializer(serializers.HyperlinkedModelSerializer):

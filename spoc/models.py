@@ -121,7 +121,7 @@ class Header(models.Model):
 
     @property
     def validations(self):
-        //self.add_validations()
+        #self.add_validations()
         return self.validation_set.all()
 
     def add_validations(self):
@@ -244,6 +244,15 @@ class HeaderFormula(models.Model):
     coef11 = models.FloatField(null=True, blank=True)
     coef12 = models.FloatField(null=True, blank=True)    
 
+
+class Diver(models.Model):
+    
+    header = models.ForeignKey(Header)
+    dstart = models.DateField(null=True, blank=True)
+    dstop = models.DateField(null=True, blank=True)
+    ref_h = models.FloatField(null=True, blank=True)
+    baro = models.CharField(max_length=10, null=True, blank=True)
+    
 
 class FEWS_OEI_SLUIZEN(models.Model):
     ID_INT = models.CharField(primary_key=True, unique=True, max_length=64)

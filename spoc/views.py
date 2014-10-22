@@ -39,8 +39,8 @@ def get_filtered_locationset(queryset, request):
     visible = string_to_bool(request.QUERY_PARAMS.get('visible', None))
     fews = string_to_bool(request.QUERY_PARAMS.get('fews', None))
     forward = string_to_bool(request.QUERY_PARAMS.get('forward', None))
-    oei_location_name = request.QUERY_PARAMS.get('oei_location', None)
-    scada_location_name = request.QUERY_PARAMS.get('scada_location', None)
+    oei_location = request.QUERY_PARAMS.get('oei_location', None)
+    scada_location = request.QUERY_PARAMS.get('scada_location', None)
     source = request.QUERY_PARAMS.get('source', None)
     
     if type(visible).__name__ == 'bool':
@@ -53,12 +53,18 @@ def get_filtered_locationset(queryset, request):
 
     if type(forward).__name__ == 'bool':
         queryset = queryset.filter(forward=forward)
+
+    if type(oei_location).__name__ in ['str', 'unicode']:
+        queryset = queryset.filter(oei_location__locationid__icontains=oei_location)
     
-    if type(oei_location_name).__name__ in ['str', 'unicode']:
-        queryset = queryset.filter(oei_location__locationname__icontains=oei_location_name)
+    if type(scada_location).__name__ in ['str', 'unicode']:
+        queryset = queryset.filter(scada_location__locationid__icontains=scada_location)
     
-    if type(scada_location_name).__name__ in ['str', 'unicode']:
-        queryset = queryset.filter(scada_location__locationname__icontains=scada_location_name)
+    #if type(oei_location_name).__name__ in ['str', 'unicode']:
+    #    queryset = queryset.filter(oei_location__locationname__icontains=oei_location_name)
+    
+    #if type(scada_location_name).__name__ in ['str', 'unicode']:
+    #    queryset = queryset.filter(scada_location__locationname__icontains=scada_location_name)
     
     if type(source).__name__ in ['str', 'unicode']:
         queryset = queryset.filter(scada_location__source__source_type__iexact=source)
@@ -268,4 +274,42 @@ def headerformula_detail(request, pk):
             return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     except models.HeaderFormula.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['POST'])
+def diver_list(request):
+    
+    if request.method == 'POST':
+        diver = models.Diver()
+        serializer = serializers.DiverSerializer(diver, request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return HttpResponseRedirect( reverse('diver-detail', args=[diver.id]))
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+@api_view(['GET', 'PUT'])
+def diver_detail(request, pk):
+    """
+    Retrieve a diver details.
+    """
+    try:
+        diver = models.Diver.objects.get(pk=pk)
+
+        if request.method == 'GET':
+            serializer = serializers.DiverSerializer(
+                diver, context={'request': request})
+            return Response(serializer.data)
+        elif request.method == 'PUT':
+            serializer = serializers.DiverDetailsSerializer(diver, request.DATA)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    except models.Diver.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)

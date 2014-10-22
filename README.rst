@@ -154,6 +154,10 @@ Usage
    
    $ bin/django create_validations
 
+10. Add initial diver for parameter WNSHDB35
+
+    $ bin/django create_initial_divers
+
 
 REST
 ------------------------------

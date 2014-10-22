@@ -34,6 +34,10 @@ urlpatterns = patterns(
         'headerformula_list', name='headerformula-list'),
     url(r'^headerformulas/(?P<pk>[a-zA-Z0-9_.-]+)/$',
         'headerformula_detail', name='headerformula-detail'),
+    url(r'^divers/$',
+        'diver_list', name='diver-list'),
+    url(r'^divers/(?P<pk>[0-9]+)/$',
+        'diver_detail', name='diver-detail'),
     url(r'^formulatypes/$', 'formulatypes_list', name='formulatypes-list'),
     
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
