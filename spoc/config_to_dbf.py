@@ -83,8 +83,8 @@ def store_headers(out, location, headers):
             rec['DEBITF'] = debitf if debitf is not None else ''
         divers = header.diver_set.filter(dstop__isnull=True)
         if divers.exists():
-            ref_h = divers[len(divers)-1]
-            baro = divers[len(divers)-1]
+            ref_h = divers[len(divers)-1].ref_h
+            baro = divers[len(divers)-1].baro
 
     rec['REF_H'] = str(ref_h) if ref_h is not None else ''
     rec['BARO'] = str(baro) if baro is not None else ''
