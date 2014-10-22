@@ -1,94 +1,84 @@
-WNS-code;WNS-naam;softmin;softmax;hardmin;hardmax;stijgdaal;levendigheid;Formule
-WNSHDB1;waterstand instroom;x;x;x;x;x;x;
-WNSHDB10;klephoogte stuw 1;;;x;x;;x;
-WNSHDB11;klephoogte stuw 2;;;x;x;;x;
-WNSHDB12;klephoogte stuw 3;;;x;x;;x;
-WNSHDB14;dagdebiet pomp2 ruw (cum);;x;x;x;;;
-WNSHDB15;kWh laag;;x;x;x;;;
-WNSHDB17;kWh hoog;;x;x;x;;;
-WNSHDB18;debiet sluis ruw (cum);;x;x;x;;;
-WNSHDB19;dagdebiet pomp3 ruw (cum);;x;x;x;;;
-WNSHDB2;inslagpeil pomp1;x;x;;;;;
-WNSHDB20;dagdebiet stuw1 ruw (cum);;x;x;x;;;
-WNSHDB21;dagdebiet stuw2 ruw (cum);;x;x;x;;;
-WNSHDB22;uitslagpeil pomp1;x;x;;;;;
-WNSHDB23;uitslagpeil pomp2;x;x;;;;;
-WNSHDB24;opmerking waterstand instroom;;;x;x;;;
-WNSHDB25;dagdebiet pomp4 ruw (cum);;x;x;x;;;
-WNSHDB27;geleidendheid;;x;x;x;x;x;
-WNSHDB28;neerslag riolering;;;;;;;
-WNSHDB29;uitslagpeil pomp3;x;x;;;;;
-WNSHDB3;waterstand uitstroom;x;x;x;x;x;x;
-WNSHDB30;uitslagpeil pomp4;x;x;;;;;
-WNSHDB31;niveau riolering extern;;;;;;;
-WNSHDB32;niveau riolering intern;;;;;;;
-WNSHDB33;reden peilwijziging instroom;;;x;x;;;
-WNSHDB34;operationeel peil instroom;x;x;x;x;;;
-WNSHDB35;waterstand ongecompenseerd;;;;;;;
-WNSHDB36;zuurstof;;;;;;;
-WNSHDB37;debiet pomp1 ruw (cum);;x;x;x;;;
-WNSHDB38;waterstand peilschaal;x;x;x;x;;;
-WNSHDB40;waterstand gecompenseerd;x;x;x;x;x;x;
-WNSHDB41;dagdebiet sluis ruw (cum);;x;x;x;;;
-WNSHDB43;neerslag KNMI;;;;;;;
-WNSHDB44;verdamping;;;;;;;
-WNSHDB45;debiet pomp2 ruw (cum);;x;x;x;;;
-WNSHDB46;debiet pomp3 ruw (cum);;x;x;x;;;
-WNSHDB47;debiet stuw1 ruw (cum);;x;x;x;;;
-WNSHDB48;debiet stuw2 ruw (cum);;x;x;x;;;
-WNSHDB49;debiet pomp4 ruw (cum);;x;x;x;;;
-WNSHDB5;bedrijf pomp1;;;x;x;;;
-WNSHDB51;neerslag;;;;;;;
-WNSHDB52;watertemperatuur;;;;;;;
-WNSHDB53;luchtdruk;;;;;;;
-WNSHDB54;luchttemperatuur;;;;;;;
-WNSHDB55;frequentie pomp1;;x;x;x;;;
-WNSHDB56;frequentie pomp2;;x;x;x;;;
-WNSHDB57;frequentie pomp3;;x;x;x;;;
-WNSHDB58;frequentie pomp4;;x;x;x;;;
-WNSHDB59;operationeel peil uitstroom;x;x;x;x;;;
-WNSHDB6;bedrijf pomp2;;;x;x;;;
-WNSHDB60;reden peilwijziging uitstroom;;;x;x;;;
-WNSHDB62;doorstroomopening inlaatklep;;x;x;x;;x;
-WNSHDB63;openingspercentage inlaatklep;;x;x;x;;x;
-WNSHDB64;klephoogte stuw 4;;;x;x;;x;
-WNSHDB65;inslagpeil pomp2;x;x;;;;;
-WNSHDB66;inslagpeil pomp3;x;x;;;;;
-WNSHDB67;inslagpeil pomp4;x;x;;;;;
-WNSHDB68;debiet pomp1 gevalideerd (mom);;x;x;x;;;x
-WNSHDB69;debiet pomp2 gevalideerd (mom);;x;x;x;;;x
-WNSHDB70;debiet pomp3 gevalideerd (mom);;x;x;x;;;x
-WNSHDB7;bedrijf pomp3;;;x;x;;;
-WNSHDB71;debiet pomp4 gevalideerd (mom);;x;x;x;;;x
-WNSHDB72;debiet stuw1 gevalideerd (mom);;x;x;x;;;x
-WNSHDB73;debiet stuw2 gevalideerd (mom);;x;x;x;;;x
-WNSHDB74;debiet sluis gevalideerd (mom);;x;x;x;;;x
-WNSHDB75;draaiuren krooshekreiniger;;;x;x;;;
-WNSHDB76;draaiuren vacuumpomp;;;x;x;;;
-WNSHDB77;operationele geleidendheidswaarde;;;x;x;;;
-WNSHDB78;zomerpeil;;;x;x;;;
-WNSHDB79;winterpeil;;;x;x;;;
-WNSHDB8;bedrijf pomp4;;;x;x;;;
-WNSHDB80;stroomwaarde pomp 1;;;x;x;;;
-WNSHDB81;stroomwaarde pomp 2;;;x;x;;;
-WNSHDB82;stroomwaarde pomp 3;;;x;x;;;
-WNSHDB83;stroomwaarde pomp 4;;;x;x;;;
-WNSHDB84;debiet pomp 1 gevalideerd (cum);;x;x;x;;;
-WNSHDB85;debiet pomp 2 gevalideerd (cum);;x;x;x;;;
-WNSHDB86;debiet pomp 3 gevalideerd (cum);;x;x;x;;;
-WNSHDB87;debiet pomp 4 gevalideerd (cum);;x;x;x;;;
-WNSHDB88;debiet stuw 1 gevalideerd (cum);;x;x;x;;;
-WNSHDB89;debiet stuw 2 gevalideerd (cum);;x;x;x;;;
-WNSHDB9;dagdebiet pomp1 ruw (cum);;x;x;x;;;
-WNSHDB90;debiet sluis gevalideerd (cum);;x;x;x;;;
-;;;;;;;;
-;;;;;;;;
-;;;;;;;;
-;;;;;;;;
-;;;;;;;;
-;;;;;;;;
-;;;;;;;;
-;;;;;;;;
-;;;;;;;;
-;;;;;;;;
-;;;;;;;;
+WNS-code;WNS-naam;softmin;softmax;hardmin;hardmax;stijgdaal;levendigheid;Formule;levendigheids_periode
+WNSHDB1;waterstand instroom;x;x;x;x;x;x;;x
+WNSHDB10;klephoogte stuw 1;;;x;x;;x;;x
+WNSHDB11;klephoogte stuw 2;;;x;x;;x;;x
+WNSHDB12;klephoogte stuw 3;;;x;x;;x;;x
+WNSHDB14;dagdebiet pomp2 ruw (cum);;x;x;x;;;;
+WNSHDB15;kWh laag;;x;x;x;;;;
+WNSHDB17;kWh hoog;;x;x;x;;;;
+WNSHDB18;debiet sluis ruw (cum);;x;x;x;;;x;
+WNSHDB19;dagdebiet pomp3 ruw (cum);;x;x;x;;;;
+WNSHDB2;inslagpeil pomp1;x;x;;;;;;
+WNSHDB20;dagdebiet stuw1 ruw (cum);;x;x;x;;;;
+WNSHDB21;dagdebiet stuw2 ruw (cum);;x;x;x;;;;
+WNSHDB22;uitslagpeil pomp1;x;x;;;;;;
+WNSHDB23;uitslagpeil pomp2;x;x;;;;;;
+WNSHDB24;opmerking waterstand instroom;;;x;x;;;;
+WNSHDB25;dagdebiet pomp4 ruw (cum);;x;x;x;;;;
+WNSHDB27;geleidendheid;;x;x;x;x;x;;x
+WNSHDB28;neerslag riolering;;;;;;;;
+WNSHDB29;uitslagpeil pomp3;x;x;;;;;;
+WNSHDB3;waterstand uitstroom;x;x;x;x;x;x;;x
+WNSHDB30;uitslagpeil pomp4;x;x;;;;;;
+WNSHDB31;niveau riolering extern;;;;;;;;
+WNSHDB32;niveau riolering intern;;;;;;;;
+WNSHDB33;reden peilwijziging instroom;;;x;x;;;;
+WNSHDB34;operationeel peil instroom;x;x;x;x;;;;
+WNSHDB35;waterstand ongecompenseerd;;;;;;;;
+WNSHDB36;zuurstof;;;;;;;;
+WNSHDB37;debiet pomp1 ruw (cum);;x;x;x;;;x;
+WNSHDB38;waterstand peilschaal;x;x;x;x;;;;
+WNSHDB40;waterstand gecompenseerd;x;x;x;x;x;x;;x
+WNSHDB41;dagdebiet sluis ruw (cum);;x;x;x;;;;
+WNSHDB43;neerslag KNMI;;;;;;;;
+WNSHDB44;verdamping;;;;;;;;
+WNSHDB45;debiet pomp2 ruw (cum);;x;x;x;;;x;
+WNSHDB46;debiet pomp3 ruw (cum);;x;x;x;;;x;
+WNSHDB47;debiet stuw1 ruw (cum);;x;x;x;;;x;
+WNSHDB48;debiet stuw2 ruw (cum);;x;x;x;;;x;
+WNSHDB49;debiet pomp4 ruw (cum);;x;x;x;;;x;
+WNSHDB50;debiet stuw3 ruw (cum);;x;x;x;;;x;
+WNSHDB5;bedrijf pomp1;;;x;x;;;;
+WNSHDB51;neerslag;;;;;;;;
+WNSHDB52;watertemperatuur;;;;;;;;
+WNSHDB53;luchtdruk;;;;;;;;
+WNSHDB54;luchttemperatuur;;;;;;;;
+WNSHDB55;frequentie pomp1;;x;x;x;;;;
+WNSHDB56;frequentie pomp2;;x;x;x;;;;
+WNSHDB57;frequentie pomp3;;x;x;x;;;;
+WNSHDB58;frequentie pomp4;;x;x;x;;;;
+WNSHDB59;operationeel peil uitstroom;x;x;x;x;;;;
+WNSHDB6;bedrijf pomp2;;;x;x;;;;
+WNSHDB60;reden peilwijziging uitstroom;;;x;x;;;;
+WNSHDB62;doorstroomopening inlaatklep;;x;x;x;;x;;x
+WNSHDB63;openingspercentage inlaatklep;;x;x;x;;x;;x
+WNSHDB64;klephoogte stuw 4;;;x;x;;x;;x
+WNSHDB65;inslagpeil pomp2;x;x;;;;;;
+WNSHDB66;inslagpeil pomp3;x;x;;;;;;
+WNSHDB67;inslagpeil pomp4;x;x;;;;;;
+WNSHDB68;debiet pomp1 gevalideerd (mom);;x;x;x;;;;
+WNSHDB69;debiet pomp2 gevalideerd (mom);;x;x;x;;;;
+WNSHDB70;debiet pomp3 gevalideerd (mom);;x;x;x;;;;
+WNSHDB7;bedrijf pomp3;;;x;x;;;;
+WNSHDB71;debiet pomp4 gevalideerd (mom);;x;x;x;;;;
+WNSHDB72;debiet stuw1 gevalideerd (mom);;x;x;x;;;;
+WNSHDB73;debiet stuw2 gevalideerd (mom);;x;x;x;;;;
+WNSHDB74;debiet sluis gevalideerd (mom);;x;x;x;;;;
+WNSHDB75;draaiuren krooshekreiniger;;;x;x;;;;
+WNSHDB76;draaiuren vacuumpomp;;;x;x;;;;
+WNSHDB77;operationele geleidendheidswaarde;;;x;x;;;;
+WNSHDB78;zomerpeil;;;x;x;;;;
+WNSHDB79;winterpeil;;;x;x;;;;
+WNSHDB8;bedrijf pomp4;;;x;x;;;;
+WNSHDB80;stroomwaarde pomp 1;;;x;x;;;;
+WNSHDB81;stroomwaarde pomp 2;;;x;x;;;;
+WNSHDB82;stroomwaarde pomp 3;;;x;x;;;;
+WNSHDB83;stroomwaarde pomp 4;;;x;x;;;;
+WNSHDB84;debiet pomp 1 gevalideerd (cum);;x;x;x;;;;
+WNSHDB85;debiet pomp 2 gevalideerd (cum);;x;x;x;;;;
+WNSHDB86;debiet pomp 3 gevalideerd (cum);;x;x;x;;;;
+WNSHDB87;debiet pomp 4 gevalideerd (cum);;x;x;x;;;;
+WNSHDB88;debiet stuw 1 gevalideerd (cum);;x;x;x;;;;
+WNSHDB89;debiet stuw 2 gevalideerd (cum);;x;x;x;;;;
+WNSHDB9;dagdebiet pomp1 ruw (cum);;x;x;x;;;;
+WNSHDB90;debiet sluis gevalideerd (cum);;x;x;x;;;;
