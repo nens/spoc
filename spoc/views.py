@@ -70,8 +70,26 @@ def get_filtered_locationset(queryset, request):
         queryset = queryset.filter(scada_location__source__source_type__iexact=source)
 
     return queryset
-        
 
+
+def sort_locationset(queryset, request):
+    fieldname = request.QUERY_PARAMS.get('sort', None)
+    fieldorder = request.QUERY_PARAMS.get('order', None)
+    order = ''
+    
+    if fieldname in [None, '']:
+        return queryset
+
+    if fieldorder == 'desc':
+        order = '-'
+    else:
+        order = ''
+
+    queryset = queryset.order_by('{0}{1}__{2}'.format(order, fieldname, 'locationid')
+
+    return queryset
+        
+        
 @api_view(('GET',))
 def api_root(request, format=None):
     return Response({
@@ -113,6 +131,7 @@ def location_list(request):
 
         queryset = get_filtered_locationset(
             models.Location.objects.all(), request)
+        queryset = sort_locationset(queryset, request)
 
         try:
             items = int(items)
