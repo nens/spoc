@@ -84,9 +84,7 @@ def sort_locationset(queryset, request):
         order = '-'
     else:
         order = ''
-
-    queryset = queryset.order_by('{0}{1}__{2}'.format(order, fieldname, 'locationid')
-
+    queryset = queryset.order_by('{0}{1}__{2}'.format(order, fieldname, 'locationid'))
     return queryset
         
         
