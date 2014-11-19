@@ -175,3 +175,20 @@ Retrieve locations:
   https://spoc.staging.lizard.net/locations/?items_per_page=2&page=100
   
   optional QueryParameters: page (deafault = 1), items_per_page (default = 20)
+
+
+Sorting
+---------
+Mapping sorting fields:
+ 
+client side                    server side
+
+‘oei_locatie’                  oei_location.loctionid
+‘tijdreekscode’                scada_location.loctionid
+‘naam’                         scada_location.locationname
+‘bron’                         scada_location.source.name
+ 
+
+example: 
+    http://spoc.staging.lizard.net/locations/?page=1&items_per_page=10&sort=oei_locatie&order=asc
+    http://spoc.staging.lizard.net/locations/?page=1&items_per_page=10&sort=oei_locatie&order=desc

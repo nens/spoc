@@ -76,15 +76,26 @@ def sort_locationset(queryset, request):
     fieldname = request.QUERY_PARAMS.get('sort', None)
     fieldorder = request.QUERY_PARAMS.get('order', None)
     order = ''
+    order_mapping = {
+        'oei_locatie': 'oei_location__locationid',
+        'tijdreekscode': 'scada_location__locationid',
+        'naam': 'scada_location__locationname',
+        'bron': 'scada_location__source__name',
+        'created': 'created',
+        'fews': 'fews',
+        'visible': 'visible',
+        'forward': 'forward'
+    }
     
-    if fieldname in [None, '']:
+    if order_mapping.get(fieldname, None) is None:
         return queryset
 
     if fieldorder == 'desc':
         order = '-'
     else:
         order = ''
-    queryset = queryset.order_by('{0}{1}__{2}'.format(order, fieldname, 'locationid'))
+    
+    queryset = queryset.order_by('{0}{1}'.format(order, order_mapping.get(fieldname)))
     return queryset
         
         
