@@ -280,7 +280,7 @@ def headerformula_list(request):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def headerformula_detail(request, pk):
     """
     Retrieve a formula details from HeaderFormul table.
@@ -298,6 +298,8 @@ def headerformula_detail(request, pk):
                 serializer.save()
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'DELETE':
+            formula.delete()
         else:
             return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -318,7 +320,7 @@ def diver_list(request):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def diver_detail(request, pk):
     """
     Retrieve a diver details.
@@ -336,6 +338,8 @@ def diver_detail(request, pk):
                 serializer.save()
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'DELETE':
+            diver.delete()
         else:
             return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
