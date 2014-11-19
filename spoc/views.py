@@ -300,6 +300,7 @@ def headerformula_detail(request, pk):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         elif request.method == 'DELETE':
             formula.delete()
+            return HttpResponseRedirect(reverse('headerformula-list'))
         else:
             return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -340,6 +341,7 @@ def diver_detail(request, pk):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         elif request.method == 'DELETE':
             diver.delete()
+            return HttpResponseRedirect( reverse('diver-list'))
         else:
             return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
