@@ -204,7 +204,7 @@ class Validation(models.Model):
         field = models.ForeignKey(ValidationField)
         header = models.ForeignKey(Header)
         value = models.DecimalField(null=True, blank=True,
-                                    decimal_places=4, max_digits=12)
+                                    decimal_places=6, max_digits=14)
 
         def __unicode__(self):
             return self.field.field.name

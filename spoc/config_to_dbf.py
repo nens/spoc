@@ -76,18 +76,18 @@ def store_headers(out, location, headers):
             key = "{0}{1}".format(validation.field.field.prefix, parameter.id.upper())
             rec[key] = validation.value
             
-        formulas_filters = {"header__location": location.scada_location, "dstop__isnull": True}
-        formulas = models.HeaderFormula.objects.filter(**formulas_filters)
-        if formulas.exists():
-            debitf = str(formulas[0].formula_type.code)
-            rec['DEBITF'] = debitf if debitf is not None else ''
-        divers = header.diver_set.filter(dstop__isnull=True)
-        if divers.exists():
-            ref_h = divers[len(divers)-1].ref_h
-            baro = divers[len(divers)-1].baro
+        # formulas_filters = {"header__location": location.scada_location, "dstop__isnull": True}
+        # formulas = models.HeaderFormula.objects.filter(**formulas_filters)
+        # if formulas.exists():
+        #     debitf = str(formulas[0].formula_type.code)
+        #     rec['DEBITF'] = debitf if debitf is not None else ''
+        # divers = header.diver_set.filter(dstop__isnull=True)
+        # if divers.exists():
+        #     ref_h = divers[len(divers)-1].ref_h
+        #     baro = divers[len(divers)-1].baro
 
-    rec['REF_H'] = str(ref_h) if ref_h is not None else ''
-    rec['BARO'] = str(baro) if baro is not None else ''
+    #rec['REF_H'] = str(ref_h) if ref_h is not None else ''
+    #rec['BARO'] = str(baro) if baro is not None else ''
     rec.store()
 
 
