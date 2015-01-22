@@ -8,21 +8,21 @@ from lcmutils import slashify
 logger = logging.getLogger(__name__)
 
 
-def make_lower(v):
-    """makes a key lowercase
+def make_upper(v):
+    """makes a key uppercase
 
-    >>> make_lower('ab')
+    >>> make_upper('ab')
     'ab'
-    >>> make_lower('AB')
+    >>> make_upper('AB')
     'ab'
-    >>> make_lower(('ab', 1, 'DE'))
+    >>> make_upper(('ab', 1, 'DE'))
     ('ab', 1, 'de')
     """
 
     if isinstance(v, str):
-        v = v.lower()
+        v = v.upper()
     elif isinstance(v, tuple):
-        v = tuple([make_lower(i) for i in v])
+        v = tuple([make_upper(i) for i in v])
     return v
 
 
@@ -160,13 +160,13 @@ class LcmDict(dict):
         items = [i for i in self.items()]
         self.clear()
         for k, v in items:
-            k = make_lower(k)
+            k = make_upper(k)
             super(LcmDict, self).__setitem__(k, v)
         self._resettable = set()
         self._altered = set()
 
     def __setitem__(self, key, value):
-        super(LcmDict, self).__setitem__(make_lower(key), value)
+        super(LcmDict, self).__setitem__(make_upper(key), value)
 
     def get(self, key, d=None):
         """
@@ -185,7 +185,7 @@ class LcmDict(dict):
         >>> d.get(('B', 2))
         """
 
-        return super(LcmDict, self).get(make_lower(key), d)
+        return super(LcmDict, self).get(make_upper(key), d)
 
     def __getitem__(self, key):
         """
@@ -195,7 +195,7 @@ class LcmDict(dict):
         1
         >>>
         """
-        return super(LcmDict, self).__getitem__(make_lower(key))
+        return super(LcmDict, self).__getitem__(make_upper(key))
 
     def __contains__(self, key):
         """
@@ -211,7 +211,7 @@ class LcmDict(dict):
         True
         >>>
         """
-        return super(LcmDict, self).__contains__(make_lower(key))
+        return super(LcmDict, self).__contains__(make_upper(key))
 
     def project(self, iterable, other=None):
         """returns a new dictionary with only the keys from iterable.
@@ -262,7 +262,7 @@ class LcmDict(dict):
         self._altered = set()
 
     def setdefault(self, key, value):
-        return super(LcmDict, self).setdefault(make_lower(key), value)
+        return super(LcmDict, self).setdefault(make_upper(key), value)
 
     def setcompatible(self, key, value):
         """controlled (re)definition of key.
@@ -324,7 +324,7 @@ class LcmDict(dict):
 
         """
 
-        key = make_lower(key)
+        key = make_upper(key)
         did_it = True
         if value is None:
             did_it = False
