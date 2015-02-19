@@ -242,7 +242,10 @@ class HeaderFormula(models.Model):
     coef09 = models.FloatField(null=True, blank=True)
     coef10 = models.FloatField(null=True, blank=True)
     coef11 = models.FloatField(null=True, blank=True)
-    coef12 = models.FloatField(null=True, blank=True)    
+    coef12 = models.FloatField(null=True, blank=True)
+    
+    class Meta:
+        ordering = ['dstart', 'coef01', 'coef02']
 
 
 class Diver(models.Model):
